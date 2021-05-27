@@ -1,0 +1,25 @@
+﻿@model YukikoSite.Models.Account.LoginModel
+
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<form class="form-frame" asp-action="LoginToAdmin" asp-controller="Account" asp-antiforgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <div>
+            <label asp-for="Login">Введите логин</label><br />
+            <input asp-for="Login" />
+            <span asp-validation-for="Login"></span>
+        </div>
+        <div>
+            <label asp-for="Password">Введите пароль</label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <input type="submit" value="Войти" />
+        </div>
+    </div>
+</form> 

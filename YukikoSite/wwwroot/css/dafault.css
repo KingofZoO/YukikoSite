@@ -1,0 +1,303 @@
+﻿:root {
+    --main-color: #8495A5;
+    --item-min-width: 400px;
+}
+
+#layout-body {
+    margin: 0;
+    color: white;
+    min-width: 500px;
+    font-family: Arial;
+}
+#layout-header {
+    background-color: var(--main-color);
+    min-height: 170px;
+    position: relative;
+}
+#layout-main {
+    min-height: 800px;
+}
+#layout-footer {
+    background-color: var(--main-color);
+    min-height: 50px;
+    margin-top: 10px;
+}
+
+.yukiko-title {
+    font-family: 'Aclonica', sans-serif;
+    font-size: 60px;
+    margin-top: 5px;
+    margin-left: 40px;
+    display: inline-block;
+    vertical-align: top;
+}
+    .yukiko-title a {
+        text-decoration: none;
+        color: white;
+    }
+.yukiko-header-info {
+    font-size: 18px;
+    margin-right: 40px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+    .yukiko-header-info p {
+        margin: 10px;
+    }
+    .yukiko-header-info a {
+        color: white;
+    }
+
+.main-info {
+    background-size: cover;
+    background-position: center center;
+    min-height: 400px;
+    position: relative;
+    text-align: center;
+}
+.main-info-others {
+    background-position: center 30%;
+}
+.main-info-siding {
+    background-position: center 60%;
+}
+.main-title {
+    max-width: 800px;
+    min-width: var(--item-min-width);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100px);
+}
+    .main-title h1 {
+        font-family: 'Aclonica', sans-serif;
+        border-bottom: 15px solid #B5C4D3;
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
+    .main-title h2 {
+        font-size: 40px;
+        margin-top: 10px;
+    }
+.main-subinfo {
+    background-color: var(--main-color);
+    width: 100%;
+    text-align: center;
+    padding: 10px 0 10px 0;
+}
+    .main-subinfo p {
+        font-size: 20px;
+        margin: 0;
+    }
+
+.second-info {
+    background-color: var(--main-color);
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+    .second-info h1 {
+        margin: 0;
+    }
+    .second-info-text {
+        display: inline-block;
+        max-width: 1600px;
+        min-width: var(--item-min-width);
+        font-size: 20px;
+        text-align: justify;
+        margin: 10px;
+    }
+    .second-images img {
+        display: inline-block;
+        width: var(--item-min-width);
+        margin: 10px;
+    }
+.others-title {
+    padding: 30px;
+}
+.gloves-info-text {
+    max-width: 800px;
+    vertical-align: top;
+}
+.gloves-info-video {
+    display: inline-block;
+    margin-top: 10px;
+}
+    .gloves-info-video iframe {
+        width: var(--item-min-width);
+        height: 250px;
+    }
+
+.ul-nav-wrapper {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+    .ul-nav-wrapper ul {
+        margin: 0;
+        font-size: 0;
+        padding: 0;
+    }
+    .ul-nav-wrapper li {
+        display: inline-block;
+        font-size: 20px;
+        width: 180px;
+        line-height: 50px;
+    }
+    .ul-nav-wrapper a {
+        text-decoration: none;
+        color: white;
+        display: block;
+    }
+    .ul-nav-wrapper li:hover {
+        background-color: #B5C4D3;
+    }
+
+.items-container-content {
+    text-align: center;
+}
+.item-content {
+    background-color: var(--main-color);
+    display: inline-block;
+    margin: 10px;
+    border-radius: 10px;
+}
+.item-content-admin {
+    text-align: center;
+    vertical-align: top;
+}
+
+.gloves-item {
+    width: 600px;
+    height: 200px;
+}
+    .gloves-item img {
+        height: 150px;
+    }
+
+.siding-item {
+    width: var(--item-min-width);
+    height: 410px;
+}
+    .siding-item img {
+        width: 380px;
+        margin-left: 2px;
+    }
+
+.ventilation-item {
+    width: var(--item-min-width);
+    height: 200px;
+}
+    .ventilation-item img {
+        width: 150px;
+    }
+
+.others-item {
+    width: var(--item-min-width);
+    height: 200px;
+}
+    .others-item img {
+        max-width: 300px;
+        max-height: 160px;
+    }
+
+.item-title {
+    font-size: 20px;
+}
+.item-table {
+    margin: 5px;
+}
+.item-desc {
+    vertical-align: top;
+    white-space: pre-line;
+    text-align: justify;
+}
+
+.form-frame {
+    background-color: var(--main-color);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    width: 350px;
+    display: inline-block;
+}
+    .form-frame img {
+        width: 150px;
+        height: 150px;
+    }
+    .form-frame textarea {
+        width: 300px;
+        height: 200px;
+    }
+
+.a-section {
+    margin-top: 10px;
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+.a-button-wrapper {
+    background-color: var(--main-color);
+    border-radius: 10px;
+    margin: 10px 0 0 10px;
+    width: 120px;
+    line-height: 20px;
+    display: inline-block;
+    text-align: center;
+}
+    .a-button-wrapper a {
+        text-decoration: none;
+        color: white;
+        display: block;
+    }
+    .a-button-wrapper:hover {
+        background-color: #B5C4D3;
+    }
+
+.map-element {
+    width: 100%;
+    height: 600px;
+}
+
+@media(max-width: 930px) {
+    #layout-header {
+        min-height: 200px;
+    }
+
+    .yukiko-title {
+        margin-left: 10px;
+    }
+
+    .yukiko-header-info {
+        display: block;
+        margin-left: 10px;
+        margin-right: initial;
+        position: initial;
+    }
+
+    .ul-nav-wrapper {
+        width: 180px;
+        text-align: right;
+        right: 0;
+    }
+        .ul-nav-wrapper ul {
+            margin-right: 10px;
+        }
+        .ul-nav-wrapper li {
+            display: initial;
+        }
+}
+
+@media(max-width: 700px) {
+    .yukiko-title {
+        width: 100px;
+    }
+
+    .gloves-item {
+        width: var(--item-min-width);
+        height: 260px;
+    }
+}

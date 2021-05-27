@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SidingItem>
+
+@{ 
+    ViewData["Title"] = "Сайдинг";
+}
+
+<div class="second-info">
+    <h1>Металлосайдинг NIPPON STEEL</h1>
+    <div class="second-info-text">
+        В основе материала - лист гальванизированной стали “Galvastar”, включающий в себя 55-процентный алюминиевый сплав. Верхний слой - краска из полиэфирной смолы, которая наносится дважды и подвергается термической обработке, благодаря чему поверхность приобретает исключительную износостойкость. Коррозионная стойкость металла и долговечность краски обеспечивает целостность материала на срок до 25 лет и делают его пригодным к использованию в районах с агрессивной внешней средой (морское побережье, промышленные зоны и т.п.).
+    </div>
+    <div class="second-images">
+        <img src="~/images/sidingSecond1.jpg" />
+        <img src="~/images/sidingSecond2.jpg" />
+        <img src="~/images/sidingSecond3.jpg" />
+    </div>
+</div>
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content siding-item">
+            <div class="item-title">@item.Title</div>
+            <table class="item-table">
+                <tr>
+                    <td>
+                        <img src="~/images/siding/@item.ImagePath" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="item-desc">
+                        @item.Description
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>

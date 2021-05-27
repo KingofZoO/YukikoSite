@@ -1,0 +1,37 @@
+﻿@model IEnumerable<GlovesItem>
+
+@{
+    ViewData["Title"] = "Перчатки";
+}
+
+<div class="a-button-wrapper">
+    <a href="/choosecontent">К выбору категории</a>
+</div>
+<div class="a-button-wrapper">
+    <a href="/changegloves">Добавить перчатки</a>
+</div>
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content">
+            <div class="gloves-item">
+                <div class="item-title">@item.Title</div>
+                <table class="item-table">
+                    <tr>
+                        <td>
+                            <img src="~/images/gloves/@item.ImagePath" />
+                        </td>
+                        <td class="item-desc">
+                            @item.Description
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="a-button-wrapper">
+                <a href="/changegloves?id=@item.Id">Изменить</a>
+            </div>
+            <div class="a-button-wrapper">
+                <a href="/deletegloves?id=@item.Id">Удалить</a>
+            </div>
+        </div>
+    }
+</div>

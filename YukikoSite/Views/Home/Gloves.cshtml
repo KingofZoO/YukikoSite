@@ -1,0 +1,32 @@
+﻿@model IEnumerable<GlovesItem>
+
+@{
+    ViewData["Title"] = "Перчатки";
+}
+
+<div class="second-info">
+    <h1>Перчатки AOI WORKS</h1>
+    <div class="gloves-info-video">
+        <iframe src="https://www.youtube.com/embed/mouBkpQ6eGE"></iframe>
+    </div>
+    <div class="second-info-text gloves-info-text">
+        AOI WORKS имеет плодотворную историю со дня основания в 1923 году, разрабатывает и распространяет улучшенные виды защитных перчаток. Японские перчатки выделяются комфортным облеганием руки, высокой износостойкостью и хорошим захватом. Садоводы, огородники, строители и любители активного отдыха оценят высокое качество перчаток AOI WORKS.
+    </div>
+</div>
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content gloves-item">
+            <div class="item-title">@item.Title</div>
+            <table class="item-table">
+                <tr>
+                    <td>
+                        <img src="~/images/gloves/@item.ImagePath" />
+                    </td>
+                    <td class="item-desc">
+                        @item.Description
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>

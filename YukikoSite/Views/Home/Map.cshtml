@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Карта";
+}
+
+<script src="https://maps.api.2gis.ru/2.0/loader.js"></script>
+<div id="map" class="map-element"></div>
+<script>
+    DG.then(function () {
+        var map,
+            myIcon;
+
+        map = DG.map('map', {
+            center: [54.992902, 82.911121],
+            zoom: 17
+        });
+
+        myIcon = DG.icon({
+            iconUrl: 'images/yukiko.png',
+            iconSize: [56, 56]
+        });
+        DG.marker([54.992902, 82.911121], {
+            icon: myIcon
+        }).addTo(map).bindLabel('Юкико центр');
+
+        var options = {
+            vectors: [
+                "LINESTRING(82.91143 54.993287,82.91108 54.993097)"
+            ]
+        }
+        DG.entrance(options).addTo(map);
+    });
+</script>

@@ -1,0 +1,19 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Yukiko - @ViewData["Title"]</title>
+    <link rel="shortcut icon" href="~/images/yukiko.ico" />
+    @await Html.PartialAsync("Partials/MetatagsPartial")
+    @await Html.PartialAsync("Partials/LinksPartial")
+    @await Html.PartialAsync("Partials/CssPartial")
+</head>
+<body id="layout-body">
+    @await Html.PartialAsync("Partials/HeaderPartial")
+
+    <main id="layout-main">
+        @RenderBody()
+    </main>
+
+    @await Html.PartialAsync("Partials/FooterPartial")
+</body>
+</html>
