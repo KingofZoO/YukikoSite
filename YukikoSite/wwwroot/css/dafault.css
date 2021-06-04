@@ -6,13 +6,13 @@
 #layout-body {
     margin: 0;
     color: white;
-    min-width: 500px;
+    min-width: 440px;
     font-family: Arial;
 }
 
 #layout-header {
     background-color: var(--main-color);
-    min-height: 175px;
+    min-height: 200px;
     position: relative;
 }
 
@@ -55,6 +55,10 @@
     .yukiko-header-info a {
         color: white;
     }
+
+.yukiko-header-info-address {
+    line-height: 25px;
+}
 
 .main-info {
     background-size: cover;
@@ -190,6 +194,7 @@
     display: inline-block;
     margin: 10px;
     border-radius: 10px;
+    padding: 5px 0 5px 0;
 }
 
 .item-content-admin {
@@ -307,10 +312,6 @@
 }
 
 @media(max-width: 930px) {
-    #layout-header {
-        min-height: 200px;
-    }
-
     .yukiko-title {
         margin-left: 10px;
     }
