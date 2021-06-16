@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Keys\" />
     <Folder Include="wwwroot\images\gloves\" />
     <Folder Include="wwwroot\images\others\" />
     <Folder Include="wwwroot\images\ventilation\" />
