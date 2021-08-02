@@ -13,7 +13,8 @@
             <table class="item-table">
                 <tr>
                     <td>
-                        <img src="~/images/gallery/@item.ImagePath" />
+                        <img src="~/images/gallery/@item.ImagePath"
+                             onclick="enlargeImg(this)" />
                     </td>
                 </tr>
                 <tr>
@@ -25,3 +26,25 @@
         </div>
     }
 </div>
+<script>
+    const sampleImg = document.getElementsByTagName("img")[0];
+    const sampleStyle = sampleImg.style;
+    var currImg;
+    function enlargeImg(img) {
+        if (currImg === img) {
+            img.style = sampleStyle;
+            currImg = undefined;
+        }
+        else {
+            if (currImg != undefined)
+                currImg.style = sampleStyle;
+
+            img.style.position = "absolute";
+            img.style.top = "50%";
+            img.style.left = "50%";
+            img.style.transform = "translate(-50%, -50%)";
+            img.style.width = "60%";
+            currImg = img;
+        }
+    }
+</script>
