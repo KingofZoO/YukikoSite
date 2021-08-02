@@ -31,6 +31,9 @@
     const sampleStyle = sampleImg.style;
     var currImg;
     function enlargeImg(img) {
+        if (isMobile())
+            return;
+
         if (currImg === img) {
             img.style = sampleStyle;
             currImg = undefined;
@@ -39,12 +42,15 @@
             if (currImg != undefined)
                 currImg.style = sampleStyle;
 
-            img.style.position = "absolute";
+            img.style.position = "fixed";
             img.style.top = "50%";
             img.style.left = "50%";
             img.style.transform = "translate(-50%, -50%)";
             img.style.width = "60%";
             currImg = img;
         }
+    }
+    function isMobile() {
+        return screen.width * 0.6 < sampleImg.width;
     }
 </script>
