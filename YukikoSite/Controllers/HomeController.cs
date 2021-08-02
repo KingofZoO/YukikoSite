@@ -28,6 +28,9 @@ namespace YukikoSite.Controllers {
         [Route("others")]
         public IActionResult Others() => View(dbContext.Others);
 
+        [Route("gallery")]
+        public IActionResult Gallery() => View(dbContext.GalleryItems);
+
         [Route("map")]
         public IActionResult Map() => View();
     }

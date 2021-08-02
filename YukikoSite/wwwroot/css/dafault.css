@@ -240,6 +240,16 @@
         max-height: 160px;
     }
 
+.gallery-item {
+    width: var(--item-min-width);
+    height: 350px;
+}
+
+    .gallery-item img {
+        width: 350px;
+        margin-left: 18px;
+    }
+
 .item-title {
     font-size: 20px;
 }

@@ -13,8 +13,10 @@ namespace YukikoSite.Models {
         public DbSet<VentilationItem> Ventilation { get; set; }
         public DbSet<OthersItem> Others { get; set; }
 
+        public DbSet<GalleryItem> GalleryItems { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

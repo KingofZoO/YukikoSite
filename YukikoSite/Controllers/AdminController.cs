@@ -36,6 +36,9 @@ namespace YukikoSite.Controllers {
 
         [Route("otherstochange")]
         public IActionResult OthersToChange() => View(dbContext.Others);
+
+        [Route("gallerytochange")]
+        public IActionResult GalleryToChange() => View(dbContext.GalleryItems);
         #endregion
 
         #region HttpGet ChangeMethods
@@ -84,6 +87,18 @@ namespace YukikoSite.Controllers {
             else {
                 OthersItem others = dbContext.Others.First(g => g.Id == id);
                 return View(others);
+            }
+        }
+
+        [HttpGet]
+        [Route("changegallery")]
+        public IActionResult ChangeGallery(int id = 0) {
+            ViewBag.GalleryId = id;
+            if (id == 0)
+                return View();
+            else {
+                GalleryItem galleryItem = dbContext.GalleryItems.First(g => g.Id == id);
+                return View(galleryItem);
             }
         }
         #endregion
@@ -164,6 +179,25 @@ namespace YukikoSite.Controllers {
             dbContext.SaveChanges();
             return RedirectToAction("otherstochange");
         }
+
+        [HttpPost]
+        [Route("changegallery")]
+        public async Task<IActionResult> ChangeGallery(GalleryItem galleryItem, IFormFile imageFile) {
+            if (imageFile != null) {
+                galleryItem.ImagePath = imageFile.FileName;
+                using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", imageFile.FileName), FileMode.Create)) {
+                    await imageFile.CopyToAsync(stream);
+                }
+            }
+
+            if (ViewBag.GalleryId == 0)
+                dbContext.GalleryItems.Add(galleryItem);
+            else
+                dbContext.GalleryItems.Update(galleryItem);
+
+            dbContext.SaveChanges();
+            return RedirectToAction("gallerytochange");
+        }
         #endregion
 
         #region DeleteMethods
@@ -225,6 +259,21 @@ namespace YukikoSite.Controllers {
             dbContext.Others.Remove(others);
             dbContext.SaveChanges();
             return RedirectToAction("otherstochange");
+        }
+
+        [Route("deletegallery")]
+        public IActionResult DeleteGallery(int id) {
+            GalleryItem galleryItem = dbContext.GalleryItems.First(g => g.Id == id);
+
+            if (galleryItem.ImagePath != null) {
+                FileInfo imageFile = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", galleryItem.ImagePath));
+                if (imageFile.Exists)
+                    imageFile.Delete();
+            }
+
+            dbContext.GalleryItems.Remove(galleryItem);
+            dbContext.SaveChanges();
+            return RedirectToAction("gallerytochange");
         }
         #endregion
     }

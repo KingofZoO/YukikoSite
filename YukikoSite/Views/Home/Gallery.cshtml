@@ -1,0 +1,27 @@
+﻿@model IEnumerable<GalleryItem>
+
+@{
+    ViewData["Title"] = "Галерея";
+}
+
+<div class="second-info">
+    <h1 class="others-title">Галерея</h1>
+</div>
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content gallery-item">
+            <table class="item-table">
+                <tr>
+                    <td>
+                        <img src="~/images/gallery/@item.ImagePath" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="item-desc">
+                        @item.Description
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>

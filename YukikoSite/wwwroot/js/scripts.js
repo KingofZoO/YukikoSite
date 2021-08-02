@@ -9,9 +9,11 @@ imgInput.addEventListener("change", function () {
     getImgData();
 });
 
-titleInput.addEventListener("change", function () {
-    titlePreview.innerText = titleInput.value;
-});
+if (titleInput != null) {
+    titleInput.addEventListener("change", function () {
+        titlePreview.innerText = titleInput.value;
+    });
+}
 
 descInput.addEventListener("change", function () {
     descPreview.innerText = descInput.value;

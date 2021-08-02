@@ -1,0 +1,42 @@
+﻿@model GalleryItem
+
+@{
+    ViewData["Title"] = "Галерея";
+}
+
+@{
+    string ImageSource() => Model == null ? "" : $"/images/gallery/{Model.ImagePath}";
+    string ModelDesc() => Model == null ? "" : $"{Model.Description}";
+}
+
+<form class="form-frame" asp-controller="Admin" asp-action="ChangeGallery" asp-antiforgery="true" method="post" enctype="multipart/form-data">
+    <div>
+        <div>
+            <input type="hidden" value="@ViewBag.GalleryId" asp-for="Id" />
+            <input type="hidden" asp-for="ImagePath" />
+        </div>
+        <div>
+            <label asp-for="Description">Введите описание элемента</label><br />
+            <textarea asp-for="Description" id="desc-input"></textarea>
+        </div>
+        <div>
+            <input type="file" name="imageFile" accept="image/*" id="img-input" />
+        </div>
+    </div>
+    <input type="submit" value="Сохранить" />
+</form>
+<div class="item-content gallery-item item-content-admin">
+    <table class="item-table">
+        <tr>
+            <td>
+                <img src="@ImageSource()" id="img-preview" />
+            </td>
+        </tr>
+        <tr>
+            <td class="item-desc" id="desc-preview">
+                @ModelDesc()
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="~/js/scripts.js" asp-append-version="true"></script>
