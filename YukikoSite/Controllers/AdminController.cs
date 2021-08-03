@@ -249,25 +249,52 @@ namespace YukikoSite.Controllers {
         [HttpPost]
         [Route("changenews")]
         public async Task<IActionResult> ChangeNews(NewsItem newsItem, IFormFile titleImageFile, IFormFile[] contentFiles) {
-            if (titleImageFile != null) {
-                if (newsItem.TitleImagePath != null && newsItem.TitleImagePath != newsItem.TitleImagePath) {
-                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", newsItem.TitleImagePath));
+            bool isTitleDefined = titleImageFile != null;
+            bool isContentDefined = contentFiles != null && contentFiles.Length != 0;
+
+            if (isTitleDefined) {
+                if (newsItem.TitleImagePath != null && newsItem.TitleImagePath != titleImageFile.FileName) {
+                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", $"{newsItem.Id}", newsItem.TitleImagePath));
                     if (oldImage.Exists)
                         oldImage.Delete();
                 }
-
                 newsItem.TitleImagePath = titleImageFile.FileName;
-                using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", titleImageFile.FileName), FileMode.Create)) {
-                    await titleImageFile.CopyToAsync(stream);
-                }
+            }
+            if(isContentDefined) {
+                foreach (var el in contentFiles)
+                    newsItem.NewsContentItems.Add(new NewsContentItem {
+                        ItemPath = el.FileName
+                    });
             }
 
-            if (ViewBag.NewsId == 0)
+            if (newsItem.Id == 0)
                 dbContext.NewsItems.Add(newsItem);
             else
                 dbContext.NewsItems.Update(newsItem);
 
-            dbContext.SaveChanges();
+            dbContext.SaveChanges(); // New entity id is set now and we can use it for organize file storage
+
+            DirectoryInfo newsFolder = new DirectoryInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", $"{newsItem.Id}"));
+            if (!newsFolder.Exists)
+                newsFolder.Create();
+
+            if (isTitleDefined) {
+                using (FileStream stream = new FileStream(Path.Combine(newsFolder.FullName, titleImageFile.FileName), FileMode.Create)) {
+                    await titleImageFile.CopyToAsync(stream);
+                }
+            }
+            if (isContentDefined) {
+                List<Task> tasks = new List<Task>();
+                foreach (var el in contentFiles) {
+                    tasks.Add(Task.Run(async () => {
+                        using (FileStream stream = new FileStream(Path.Combine(newsFolder.FullName, el.FileName), FileMode.Create)) {
+                            await el.CopyToAsync(stream);
+                        }
+                    }));
+                }
+                await Task.WhenAll(tasks);
+            }
+
             return RedirectToAction("newstochange");
         }
 

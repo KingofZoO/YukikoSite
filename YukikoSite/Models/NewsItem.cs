@@ -8,5 +8,9 @@ namespace YukikoSite.Models {
         public string TitleImagePath { get; set; }
 
         public List<NewsContentItem> NewsContentItems { get; set; }
+
+        public NewsItem() {
+            NewsContentItems = new List<NewsContentItem>();
+        }
     }
 }
