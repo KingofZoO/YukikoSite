@@ -1,0 +1,37 @@
+﻿@model IEnumerable<NewsItem>
+
+@{
+    ViewData["Title"] = "Новости";
+}
+
+<div class="a-button-wrapper">
+    <a href="/choosecontent">К выбору категории</a>
+</div>
+<div class="a-button-wrapper">
+    <a href="/changenews">Добавить новость</a>
+</div>
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content">
+            <div class="others-item">
+                <div class="item-title">@item.Title</div>
+                <table class="item-table">
+                    <tr>
+                        <td>
+                            <img src="~/images/news/@item.Id/@item.TitleImagePath" />
+                        </td>
+                        <td class="item-desc">
+                            @item.Description
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="a-button-wrapper">
+                <a href="/changenews?id=@item.Id">Изменить</a>
+            </div>
+            <div class="a-button-wrapper">
+                <a href="/deletenews?id=@item.Id">Удалить</a>
+            </div>
+        </div>
+    }
+</div>

@@ -9,6 +9,7 @@
     <Folder Include="Keys\" />
     <Folder Include="wwwroot\images\gallery\" />
     <Folder Include="wwwroot\images\gloves\" />
+    <Folder Include="wwwroot\images\news\" />
     <Folder Include="wwwroot\images\others\" />
     <Folder Include="wwwroot\images\ventilation\" />
     <Folder Include="wwwroot\images\siding\" />

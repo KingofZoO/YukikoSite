@@ -31,6 +31,9 @@ namespace YukikoSite.Controllers {
         [Route("gallery")]
         public IActionResult Gallery() => View(dbContext.GalleryItems);
 
+        [Route("news")]
+        public IActionResult News() => View(dbContext.NewsItems);
+
         [Route("map")]
         public IActionResult Map() => View();
     }

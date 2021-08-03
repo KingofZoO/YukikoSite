@@ -39,6 +39,10 @@ namespace YukikoSite.Controllers {
 
         [Route("gallerytochange")]
         public IActionResult GalleryToChange() => View(dbContext.GalleryItems);
+
+        [Route("newstochange")]
+        public IActionResult NewsToChange() => View(dbContext.NewsItems);
+
         #endregion
 
         #region HttpGet ChangeMethods
@@ -101,6 +105,19 @@ namespace YukikoSite.Controllers {
                 return View(galleryItem);
             }
         }
+
+        [HttpGet]
+        [Route("changenews")]
+        public IActionResult ChangeNews(int id = 0) {
+            ViewBag.NewsId = id;
+            if (id == 0)
+                return View();
+            else {
+                NewsItem newsItem = dbContext.NewsItems.First(g => g.Id == id);
+                return View(newsItem);
+            }
+        }
+
         #endregion
 
         #region HttpPost ChangeMethods
@@ -114,7 +131,7 @@ namespace YukikoSite.Controllers {
                 }
             }
 
-            if (ViewBag.GlovesId == 0)
+            if (gloves.Id == 0)
                 dbContext.Gloves.Add(gloves);
             else
                 dbContext.Gloves.Update(gloves);
@@ -133,7 +150,7 @@ namespace YukikoSite.Controllers {
                 }
             }
 
-            if (ViewBag.SidingId == 0)
+            if (siding.Id == 0)
                 dbContext.Siding.Add(siding);
             else
                 dbContext.Siding.Update(siding);
@@ -152,7 +169,7 @@ namespace YukikoSite.Controllers {
                 }
             }
 
-            if (ViewBag.VentilationId == 0)
+            if (ventilation.Id == 0)
                 dbContext.Ventilation.Add(ventilation);
             else
                 dbContext.Ventilation.Update(ventilation);
@@ -171,7 +188,7 @@ namespace YukikoSite.Controllers {
                 }
             }
 
-            if (ViewBag.OthersId == 0)
+            if (others.Id == 0)
                 dbContext.Others.Add(others);
             else
                 dbContext.Others.Update(others);
@@ -190,7 +207,7 @@ namespace YukikoSite.Controllers {
                 }
             }
 
-            if (ViewBag.GalleryId == 0)
+            if (galleryItem.Id == 0)
                 dbContext.GalleryItems.Add(galleryItem);
             else
                 dbContext.GalleryItems.Update(galleryItem);
@@ -198,6 +215,26 @@ namespace YukikoSite.Controllers {
             dbContext.SaveChanges();
             return RedirectToAction("gallerytochange");
         }
+
+        [HttpPost]
+        [Route("changenews")]
+        public async Task<IActionResult> ChangeNews(NewsItem newsItem, IFormFile titleImageFile, IFormFile[] contentFiles) {
+            if (titleImageFile != null) {
+                newsItem.TitleImagePath = titleImageFile.FileName;
+                using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", titleImageFile.FileName), FileMode.Create)) {
+                    await titleImageFile.CopyToAsync(stream);
+                }
+            }
+
+            if (ViewBag.NewsId == 0)
+                dbContext.NewsItems.Add(newsItem);
+            else
+                dbContext.NewsItems.Update(newsItem);
+
+            dbContext.SaveChanges();
+            return RedirectToAction("newstochange");
+        }
+
         #endregion
 
         #region DeleteMethods
@@ -275,6 +312,20 @@ namespace YukikoSite.Controllers {
             dbContext.SaveChanges();
             return RedirectToAction("gallerytochange");
         }
+
+        [Route("deletenews")]
+        public IActionResult DeleteNews(int id) {
+            NewsItem newsItem = dbContext.NewsItems.First(g => g.Id == id);
+
+            DirectoryInfo newsFolder = new DirectoryInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", $"{id}"));
+            if (newsFolder.Exists)
+                newsFolder.Delete(true);
+
+            dbContext.NewsItems.Remove(newsItem);
+            dbContext.SaveChanges();
+            return RedirectToAction("newstochange");
+        }
+
         #endregion
     }
 }

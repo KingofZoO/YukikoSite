@@ -1,0 +1,26 @@
+﻿@model IEnumerable<NewsItem>
+
+@{
+    ViewData["Title"] = "Новости";
+}
+
+<div class="second-info">
+    <h1 class="others-title">Новости</h1>
+</div>
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content others-item">
+            <div class="item-title">@item.Title</div>
+            <table class="item-table">
+                <tr>
+                    <td>
+                        <img src="~/images/news/@item.Id/@item.TitleImagePath" />
+                    </td>
+                    <td class="item-desc">
+                        @item.Description
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>

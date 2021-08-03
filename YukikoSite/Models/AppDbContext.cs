@@ -15,6 +15,9 @@ namespace YukikoSite.Models {
 
         public DbSet<GalleryItem> GalleryItems { get; set; }
 
+        public DbSet<NewsItem> NewsItems { get; set; }
+        public DbSet<NewsContentItem> NewsContentItems { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {
             //Database.EnsureCreated();
         }
