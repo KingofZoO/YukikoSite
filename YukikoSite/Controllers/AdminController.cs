@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,7 +114,7 @@ namespace YukikoSite.Controllers {
             if (id == 0)
                 return View();
             else {
-                NewsItem newsItem = dbContext.NewsItems.First(g => g.Id == id);
+                NewsItem newsItem = dbContext.NewsItems.Include(n => n.NewsContentItems).First(g => g.Id == id);
                 return View(newsItem);
             }
         }

@@ -13,18 +13,14 @@
 <div class="items-container-content">
     @foreach (var item in Model) {
         <div class="item-content">
-            <div class="others-item">
+            <div class="item-content news-item">
                 <div class="item-title">@item.Title</div>
-                <table class="item-table">
-                    <tr>
-                        <td>
-                            <img src="~/images/news/@item.Id/@item.TitleImagePath" />
-                        </td>
-                        <td class="item-desc">
-                            @item.Description
-                        </td>
-                    </tr>
-                </table>
+                <div class="news-image-block">
+                    <img src="~/images/news/@item.Id/@item.TitleImagePath" />
+                </div>
+                <div class="news-desc">
+                    @item.Description
+                </div>
             </div>
             <div class="a-button-wrapper">
                 <a href="/changenews?id=@item.Id">Изменить</a>

@@ -5,9 +5,11 @@
 }
 
 @{
-    string ImageSource() => Model == null ? "" : $"/images/news/{Model.Id}/{Model.TitleImagePath}";
+    string FolderPath() => Model == null ? "" : $"/images/news/{Model.Id}";
+    string ImageSource() => Model == null ? "" : $"{FolderPath()}/{Model.TitleImagePath}";
     string ModelTitle() => Model == null ? "" : $"{Model.Title}";
     string ModelDesc() => Model == null ? "" : $"{Model.Description}";
+    List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
 }
 
 <form class="form-frame" asp-controller="Admin" asp-action="ChangeNews" asp-antiforgery="true" method="post" enctype="multipart/form-data">
@@ -33,18 +35,30 @@
     </div>
     <input type="submit" value="Сохранить" />
 </form>
-<div class="item-content others-item item-content-admin">
-    <div class="item-title" id="title-preview">@ModelTitle()</div>
-    <table class="item-table">
-        <tr>
-            <td>
-                <img src="@ImageSource()" id="img-preview" />
-            </td>
-            <td class="item-desc" id="desc-preview">
-                @ModelDesc()
-            </td>
-        </tr>
-    </table>
+<div class="second-info">
+    <div class="news-content-header">
+        <h1 id="title-preview">@ModelTitle()</h1>
+        <div class="news-image-block">
+            <img src="@ImageSource()" id="img-preview" />
+        </div>
+        <div class="news-desc" id="desc-preview">
+            @ModelDesc()
+        </div>
+    </div>
+    <div class="news-content-items">
+        @if (Model != null) {
+            @foreach (var item in Model.NewsContentItems) {
+                if (ImageExtensions.Contains(System.IO.Path.GetExtension(item.ItemPath.ToUpperInvariant()))) {
+                    <img src="@FolderPath()/@item.ItemPath" />
+                }
+                else {
+                    <video controls>
+                        <source src="@FolderPath()/@item.ItemPath" />
+                    </video>
+                }
+            }
+        }
+    </div>
 </div>
 <script>
     const imgInput = document.getElementById("img-input");

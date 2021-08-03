@@ -2,28 +2,34 @@
 
 @{
     ViewData["Title"] = $"{Model.Title}";
+
+    List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
+    string folderPath = $"/images/news/{Model.Id}";
 }
 
 <div class="second-info">
-    <h1 class="others-title">Новости</h1>
-</div>
-<div class="items-container-content">
-    <div class="item-content others-item">
-        <div class="item-title">@Model.Title</div>
-        <table class="item-table">
-            <tr>
-                <td>
-                    <img src="~/images/news/@Model.Id/@Model.TitleImagePath" />
-                </td>
-                <td class="item-desc">
-                    @Model.Description
-                </td>
-            </tr>
-        </table>
-    </div>
-    @foreach (var item in Model.NewsContentItems) {
-        <div class="item-content gallery-item">
-            <img src="~/images/news/@Model.Id/@item.ItemPath"/>
+    <div class="news-content-header">
+        <h1>@Model.Title</h1>
+        <div class="news-image-block">
+            <img src="@folderPath/@Model.TitleImagePath"
+                 onclick="enlargeImg(this)" />
         </div>
-    }
+        <div class="news-desc">
+            @Model.Description
+        </div>
+    </div>
+    <div class="news-content-items">
+        @foreach (var item in Model.NewsContentItems) {
+            if (ImageExtensions.Contains(System.IO.Path.GetExtension(item.ItemPath.ToUpperInvariant()))) {
+                <img src="@folderPath/@item.ItemPath"
+                     onclick="enlargeImg(this)" />
+            }
+            else { 
+                <video controls>
+                    <source src="@folderPath/@item.ItemPath" />
+                </video>
+            }
+        }
+    </div>
 </div>
+<script src="~/js/enlargeScript.js" asp-append-version="true"></script>

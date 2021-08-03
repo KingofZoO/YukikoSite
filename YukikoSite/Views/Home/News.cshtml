@@ -4,24 +4,20 @@
     ViewData["Title"] = "Новости";
 }
 
-<div class="second-info">
+<div class="second-info second-info-lone">
     <h1 class="others-title">Новости</h1>
 </div>
 <div class="items-container-content">
     @foreach (var item in Model) {
         <a href="/newscontent?id=@item.Id" class="a-section">
-            <div class="item-content others-item">
+            <div class="item-content news-item">
                 <div class="item-title">@item.Title</div>
-                <table class="item-table">
-                    <tr>
-                        <td>
-                            <img src="~/images/news/@item.Id/@item.TitleImagePath" />
-                        </td>
-                        <td class="item-desc">
-                            @item.Description
-                        </td>
-                    </tr>
-                </table>
+                <div class="news-image-block">
+                    <img src="~/images/news/@item.Id/@item.TitleImagePath" />
+                </div>
+                <div class="news-desc">
+                    @item.Description
+                </div>
             </div>
         </a>
     }
