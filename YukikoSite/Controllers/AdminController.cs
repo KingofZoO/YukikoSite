@@ -125,6 +125,12 @@ namespace YukikoSite.Controllers {
         [Route("changegloves")]
         public async Task<IActionResult> ChangeGloves(GlovesItem gloves, IFormFile imageFile) {
             if (imageFile != null) {
+                if(gloves.ImagePath != null && gloves.ImagePath != imageFile.FileName) {
+                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "gloves", gloves.ImagePath));
+                    if (oldImage.Exists)
+                        oldImage.Delete();
+                }
+
                 gloves.ImagePath = imageFile.FileName;
                 using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "gloves", imageFile.FileName), FileMode.Create)) {
                     await imageFile.CopyToAsync(stream);
@@ -144,6 +150,12 @@ namespace YukikoSite.Controllers {
         [Route("changesiding")]
         public async Task<IActionResult> ChangeSiding(SidingItem siding, IFormFile imageFile) {
             if (imageFile != null) {
+                if (siding.ImagePath != null && siding.ImagePath != imageFile.FileName) {
+                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "siding", siding.ImagePath));
+                    if (oldImage.Exists)
+                        oldImage.Delete();
+                }
+
                 siding.ImagePath = imageFile.FileName;
                 using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "siding", imageFile.FileName), FileMode.Create)) {
                     await imageFile.CopyToAsync(stream);
@@ -163,6 +175,12 @@ namespace YukikoSite.Controllers {
         [Route("changeventilation")]
         public async Task<IActionResult> ChangeVentilation(VentilationItem ventilation, IFormFile imageFile) {
             if (imageFile != null) {
+                if (ventilation.ImagePath != null && ventilation.ImagePath != imageFile.FileName) {
+                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "ventilation", ventilation.ImagePath));
+                    if (oldImage.Exists)
+                        oldImage.Delete();
+                }
+
                 ventilation.ImagePath = imageFile.FileName;
                 using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "ventilation", imageFile.FileName), FileMode.Create)) {
                     await imageFile.CopyToAsync(stream);
@@ -182,6 +200,12 @@ namespace YukikoSite.Controllers {
         [Route("changeothers")]
         public async Task<IActionResult> ChangeOthers(OthersItem others, IFormFile imageFile) {
             if (imageFile != null) {
+                if (others.ImagePath != null && others.ImagePath != imageFile.FileName) {
+                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "others", others.ImagePath));
+                    if (oldImage.Exists)
+                        oldImage.Delete();
+                }
+
                 others.ImagePath = imageFile.FileName;
                 using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "others", imageFile.FileName), FileMode.Create)) {
                     await imageFile.CopyToAsync(stream);
@@ -201,6 +225,12 @@ namespace YukikoSite.Controllers {
         [Route("changegallery")]
         public async Task<IActionResult> ChangeGallery(GalleryItem galleryItem, IFormFile imageFile) {
             if (imageFile != null) {
+                if (galleryItem.ImagePath != null && galleryItem.ImagePath != imageFile.FileName) {
+                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", galleryItem.ImagePath));
+                    if (oldImage.Exists)
+                        oldImage.Delete();
+                }
+
                 galleryItem.ImagePath = imageFile.FileName;
                 using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", imageFile.FileName), FileMode.Create)) {
                     await imageFile.CopyToAsync(stream);
@@ -220,6 +250,12 @@ namespace YukikoSite.Controllers {
         [Route("changenews")]
         public async Task<IActionResult> ChangeNews(NewsItem newsItem, IFormFile titleImageFile, IFormFile[] contentFiles) {
             if (titleImageFile != null) {
+                if (newsItem.TitleImagePath != null && newsItem.TitleImagePath != newsItem.TitleImagePath) {
+                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", newsItem.TitleImagePath));
+                    if (oldImage.Exists)
+                        oldImage.Delete();
+                }
+
                 newsItem.TitleImagePath = titleImageFile.FileName;
                 using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", titleImageFile.FileName), FileMode.Create)) {
                     await titleImageFile.CopyToAsync(stream);
