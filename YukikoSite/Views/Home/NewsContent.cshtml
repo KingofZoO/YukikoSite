@@ -1,3 +1,29 @@
-﻿@*
-    TO DO
-*@
+﻿@model NewsItem
+
+@{
+    ViewData["Title"] = $"{Model.Title}";
+}
+
+<div class="second-info">
+    <h1 class="others-title">Новости</h1>
+</div>
+<div class="items-container-content">
+    <div class="item-content others-item">
+        <div class="item-title">@Model.Title</div>
+        <table class="item-table">
+            <tr>
+                <td>
+                    <img src="~/images/news/@Model.Id/@Model.TitleImagePath" />
+                </td>
+                <td class="item-desc">
+                    @Model.Description
+                </td>
+            </tr>
+        </table>
+    </div>
+    @foreach (var item in Model.NewsContentItems) {
+        <div class="item-content gallery-item">
+            <img src="~/images/news/@Model.Id/@item.ItemPath"/>
+        </div>
+    }
+</div>

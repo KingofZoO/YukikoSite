@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,15 @@ namespace YukikoSite.Controllers {
 
         [Route("news")]
         public IActionResult News() => View(dbContext.NewsItems);
+
+        [Route("newscontent")]
+        public IActionResult NewsContent(int id) {
+            NewsItem newsItem = dbContext.NewsItems.Include(n => n.NewsContentItems).FirstOrDefault(n => n.Id == id);
+            if (newsItem == null)
+                return RedirectToAction("news");
+
+            return View(newsItem);
+        }
 
         [Route("map")]
         public IActionResult Map() => View();

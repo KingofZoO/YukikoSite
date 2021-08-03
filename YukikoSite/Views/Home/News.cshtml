@@ -9,18 +9,20 @@
 </div>
 <div class="items-container-content">
     @foreach (var item in Model) {
-        <div class="item-content others-item">
-            <div class="item-title">@item.Title</div>
-            <table class="item-table">
-                <tr>
-                    <td>
-                        <img src="~/images/news/@item.Id/@item.TitleImagePath" />
-                    </td>
-                    <td class="item-desc">
-                        @item.Description
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <a href="/newscontent?id=@item.Id" class="a-section">
+            <div class="item-content others-item">
+                <div class="item-title">@item.Title</div>
+                <table class="item-table">
+                    <tr>
+                        <td>
+                            <img src="~/images/news/@item.Id/@item.TitleImagePath" />
+                        </td>
+                        <td class="item-desc">
+                            @item.Description
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </a>
     }
 </div>
