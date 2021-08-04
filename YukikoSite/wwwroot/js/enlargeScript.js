@@ -1,25 +1,23 @@
-﻿const sampleImg = document.getElementsByTagName("img")[0];
-const sampleStyle = sampleImg.style;
-var currImg;
+﻿const body = document.getElementById("layout-body");
+var newImage;
+
 function enlargeImg(img, scaleValue = 3) {
-    if (isMobile())
+    if (isMobile(img.width))
         return;
 
-    if (currImg === img) {
-        img.style = sampleStyle;
-        currImg = undefined;
-    }
-    else {
-        if (currImg != undefined)
-            currImg.style = sampleStyle;
+    if (newImage != undefined)
+        newImage.remove();
 
-        img.style.position = "fixed";
-        img.style.top = "50%";
-        img.style.left = "50%";
-        img.style.transform = "translate(-50%, -50%) scale(" + scaleValue + ")";
-        currImg = img;
-    }
+    newImage = new Image();
+    newImage.src = img.src;
+    newImage.width = img.width;
+    newImage.style.position = "fixed";
+    newImage.style.top = "50%";
+    newImage.style.left = "50%";
+    newImage.style.transform = "translate(-50%, -50%) scale(" + scaleValue + ")";
+    newImage.onclick = function () { newImage.remove(); }
+    body.appendChild(newImage);
 }
-function isMobile() {
-    return screen.width * 0.6 < sampleImg.width;
+function isMobile(width) {
+    return screen.width * 0.6 < width;
 }
