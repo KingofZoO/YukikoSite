@@ -9,6 +9,9 @@
     min-width: 440px;
     font-family: Arial;
 }
+#layout-body a {
+    color: white;
+}
 
 #layout-header {
     background-color: var(--main-color);
@@ -37,7 +40,6 @@
 
     .yukiko-title a {
         text-decoration: none;
-        color: white;
     }
 
 .yukiko-header-info {
@@ -50,10 +52,6 @@
 
     .yukiko-header-info p {
         margin: 10px;
-    }
-
-    .yukiko-header-info a {
-        color: white;
     }
 
 .yukiko-header-info-address {
@@ -177,7 +175,6 @@
 
     .ul-nav-wrapper a {
         text-decoration: none;
-        color: white;
         display: block;
     }
 
@@ -321,7 +318,6 @@
     margin-top: 10px;
     display: block;
     text-decoration: none;
-    color: white;
 }
 
 .a-button-wrapper {
@@ -336,7 +332,6 @@
 
     .a-button-wrapper a {
         text-decoration: none;
-        color: white;
         display: block;
     }
 
