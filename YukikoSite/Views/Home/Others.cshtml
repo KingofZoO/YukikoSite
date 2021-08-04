@@ -14,7 +14,8 @@
             <table class="item-table">
                 <tr>
                     <td>
-                        <img src="~/images/others/@item.ImagePath" />
+                        <img src="~/images/others/@item.ImagePath"
+                             onclick="enlargeImg(this, 5)"/>
                     </td>
                     <td class="item-desc">
                         @item.Description
@@ -24,3 +25,4 @@
         </div>
     }
 </div>
+<script src="~/js/enlargeScript.js" asp-append-version="true"></script>
