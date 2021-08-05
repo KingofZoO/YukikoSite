@@ -344,6 +344,24 @@
     height: 600px;
 }
 
+.paginator-container {
+    text-align: center;
+    margin: 10px;
+}
+.paginator-element {
+    background-color: var(--main-color);
+    display: inline-block;
+    width: 60px;
+    line-height: 40px;
+    border-radius: 12px;
+    margin: 0 5px 0 5px;
+}
+    .paginator-element a {
+        text-decoration: none;
+        display: block;
+        font-size: 20px;
+    }
+
 @media(max-width: 1285px) {
     .gloves-info-video {
         margin-right: 0;

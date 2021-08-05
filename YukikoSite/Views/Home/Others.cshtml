@@ -15,7 +15,7 @@
                 <tr>
                     <td>
                         <img src="~/images/others/@item.ImagePath"
-                             onclick="enlargeImg(this, 5)"/>
+                             onclick="enlargeImg(this, 5)" />
                     </td>
                     <td class="item-desc">
                         @item.Description
@@ -25,4 +25,5 @@
         </div>
     }
 </div>
+@await Html.PartialAsync("Partials/PaginatorPartial", new PaginatorViewModel(ViewBag.pageSize, ViewBag.currentPage, ViewBag.totalCount, ViewBag.mapPath))
 <script src="~/js/enlargeScript.js" asp-append-version="true"></script>

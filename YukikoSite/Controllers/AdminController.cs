@@ -27,22 +27,93 @@ namespace YukikoSite.Controllers {
 
         #region ToChangeMethods
         [Route("glovestochange")]
-        public IActionResult GlovesToChange() => View(dbContext.Gloves);
+        public async Task<IActionResult> GlovesToChange(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 40;
+            await SetPaginator(pageSize, page, "glovestochange");
+            return View(await dbContext.Gloves.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("sidingtochange")]
-        public IActionResult SidingToChange() => View(dbContext.Siding);
+        public async Task<IActionResult> SidingToChange(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 40;
+            await SetPaginator(pageSize, page, "sidingtochange");
+            return View(await dbContext.Siding.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("ventilationtochange")]
-        public IActionResult VentilationToChange() => View(dbContext.Ventilation);
+        public async Task<IActionResult> VentilationToChange(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 40;
+            await SetPaginator(pageSize, page, "ventilationtochange");
+            return View(await dbContext.Ventilation.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("otherstochange")]
-        public IActionResult OthersToChange() => View(dbContext.Others);
+        public async Task<IActionResult> OthersToChange(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 40;
+            await SetPaginator(pageSize, page, "otherstochange");
+            return View(await dbContext.Others.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("gallerytochange")]
-        public IActionResult GalleryToChange() => View(dbContext.GalleryItems);
+        public async Task<IActionResult> GalleryToChange(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 40;
+            await SetPaginator(pageSize, page, "gallerytochange");
+            return View(await dbContext.GalleryItems.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("newstochange")]
-        public IActionResult NewsToChange() => View(dbContext.NewsItems);
+        public async Task<IActionResult> NewsToChange(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 10;
+            await SetPaginator(pageSize, page, "newstochange");
+            return View(await dbContext.NewsItems.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
+
+        private async Task SetPaginator(int pageSize, int currentPage, string mapPath) {
+            int totalCount = 0;
+            switch (mapPath) {
+                case "glovestochange":
+                    totalCount = await dbContext.Gloves.CountAsync();
+                    break;
+                case "sidingtochange":
+                    totalCount = await dbContext.Siding.CountAsync();
+                    break;
+                case "ventilationtochange":
+                    totalCount = await dbContext.Ventilation.CountAsync();
+                    break;
+                case "otherstochange":
+                    totalCount = await dbContext.Others.CountAsync();
+                    break;
+                case "gallerytochange":
+                    totalCount = await dbContext.GalleryItems.CountAsync();
+                    break;
+                case "newstochange":
+                    totalCount = await dbContext.NewsItems.CountAsync();
+                    break;
+            }
+
+            ViewBag.pageSize = pageSize;
+            ViewBag.currentPage = currentPage;
+            ViewBag.totalCount = totalCount;
+            ViewBag.mapPath = mapPath;
+        }
 
         #endregion
 

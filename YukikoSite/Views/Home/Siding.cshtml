@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<SidingItem>
 
-@{ 
+@{
     ViewData["Title"] = "Сайдинг";
 }
 
@@ -23,7 +23,7 @@
                 <tr>
                     <td>
                         <img src="~/images/siding/@item.ImagePath"
-                             onclick="enlargeImg(this, 3.3)"/>
+                             onclick="enlargeImg(this, 3.3)" />
                     </td>
                 </tr>
                 <tr>
@@ -35,4 +35,5 @@
         </div>
     }
 </div>
+@await Html.PartialAsync("Partials/PaginatorPartial", new PaginatorViewModel(ViewBag.pageSize, ViewBag.currentPage, ViewBag.totalCount, ViewBag.mapPath))
 <script src="~/js/enlargeScript.js" asp-append-version="true"></script>

@@ -26,4 +26,5 @@
         </div>
     }
 </div>
+@await Html.PartialAsync("Partials/PaginatorPartial", new PaginatorViewModel(ViewBag.pageSize, ViewBag.currentPage, ViewBag.totalCount, ViewBag.mapPath))
 <script src="~/js/enlargeScript.js" asp-append-version="true"></script>

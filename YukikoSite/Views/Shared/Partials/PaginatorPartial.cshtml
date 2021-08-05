@@ -1,0 +1,17 @@
+﻿@model PaginatorViewModel
+
+@if (Model.TotalPages > 1) {
+    <div class="paginator-container">
+        <div class="paginator-element">
+            <a href="/@Model.MapPath?page=@(Model.PrevPage())">&lt;</a>
+        </div>
+        @for (int i = 1; i <= Model.TotalPages; i++) {
+            <div class="paginator-element">
+                <a href="/@Model.MapPath?page=@i">@i</a>
+            </div>
+        }
+        <div class="paginator-element">
+            <a href="/@Model.MapPath?page=@(Model.NextPage())">></a>
+        </div>
+    </div>
+}

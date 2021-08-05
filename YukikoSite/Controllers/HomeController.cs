@@ -18,22 +18,64 @@ namespace YukikoSite.Controllers {
         public IActionResult Index() => View();
 
         [Route("gloves")]
-        public IActionResult Gloves() => View(dbContext.Gloves);
+        public async Task<IActionResult> Gloves(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 20;
+            await SetPaginator(pageSize, page, "gloves");
+            return View(await dbContext.Gloves.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("siding")]
-        public IActionResult Siding() => View(dbContext.Siding);
+        public async Task<IActionResult> Siding(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 20;
+            await SetPaginator(pageSize, page, "siding");
+            return View(await dbContext.Siding.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("ventilation")]
-        public IActionResult Ventilation() => View(dbContext.Ventilation);
+        public async Task<IActionResult> Ventilation(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 20;
+            await SetPaginator(pageSize, page, "ventilation");
+            return View(await dbContext.Ventilation.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("others")]
-        public IActionResult Others() => View(dbContext.Others);
+        public async Task<IActionResult> Others(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 20;
+            await SetPaginator(pageSize, page, "others");
+            return View(await dbContext.Others.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("gallery")]
-        public IActionResult Gallery() => View(dbContext.GalleryItems);
+        public async Task<IActionResult> Gallery(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 20;
+            await SetPaginator(pageSize, page, "gallery");
+            return View(await dbContext.GalleryItems.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("news")]
-        public IActionResult News() => View(dbContext.NewsItems);
+        public async Task<IActionResult> News(int page = 1) {
+            if (page <= 0)
+                page = 1;
+
+            int pageSize = 5;
+            await SetPaginator(pageSize, page, "news");
+            return View(await dbContext.NewsItems.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+        }
 
         [Route("newscontent")]
         public IActionResult NewsContent(int id) {
@@ -46,5 +88,34 @@ namespace YukikoSite.Controllers {
 
         [Route("map")]
         public IActionResult Map() => View();
+
+        private async Task SetPaginator(int pageSize, int currentPage, string mapPath) {
+            int totalCount = 0;
+            switch (mapPath) {
+                case "gloves":
+                    totalCount = await dbContext.Gloves.CountAsync();
+                    break;
+                case "siding":
+                    totalCount = await dbContext.Siding.CountAsync();
+                    break;
+                case "ventilation":
+                    totalCount = await dbContext.Ventilation.CountAsync();
+                    break;
+                case "others":
+                    totalCount = await dbContext.Others.CountAsync();
+                    break;
+                case "gallery":
+                    totalCount = await dbContext.GalleryItems.CountAsync();
+                    break;
+                case "news":
+                    totalCount = await dbContext.NewsItems.CountAsync();
+                    break;
+            }
+
+            ViewBag.pageSize = pageSize;
+            ViewBag.currentPage = currentPage;
+            ViewBag.totalCount = totalCount;
+            ViewBag.mapPath = mapPath;
+        }
     }
 }
