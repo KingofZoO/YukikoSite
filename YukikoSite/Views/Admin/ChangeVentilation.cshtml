@@ -13,7 +13,7 @@
 <form class="form-frame" asp-controller="Admin" asp-action="ChangeVentilation" asp-antiforgery="true" method="post" enctype="multipart/form-data">
     <div>
         <div>
-            <input type="hidden" value="@ViewBag.VentilationId" asp-for="Id" />
+            <input type="hidden" value="@ViewBag.Id" asp-for="Id" />
             <input type="hidden" asp-for="ImagePath" />
         </div>
         <div>

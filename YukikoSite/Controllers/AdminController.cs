@@ -28,166 +28,99 @@ namespace YukikoSite.Controllers {
         #region ToChangeMethods
         [Route("glovestochange")]
         public async Task<IActionResult> GlovesToChange(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
-            int pageSize = 40;
-            await SetPaginator(pageSize, page, "glovestochange");
-            return View(await dbContext.Gloves.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View(await PreparePagedDataAsync<GlovesItem>(pageSize, page, "glovestochange"));
         }
 
         [Route("sidingtochange")]
         public async Task<IActionResult> SidingToChange(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
-            int pageSize = 40;
-            await SetPaginator(pageSize, page, "sidingtochange");
-            return View(await dbContext.Siding.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View(await PreparePagedDataAsync<SidingItem>(pageSize, page, "sidingtochange"));
         }
 
         [Route("ventilationtochange")]
         public async Task<IActionResult> VentilationToChange(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
-            int pageSize = 40;
-            await SetPaginator(pageSize, page, "ventilationtochange");
-            return View(await dbContext.Ventilation.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View(await PreparePagedDataAsync<VentilationItem>(pageSize, page, "ventilationtochange"));
         }
 
         [Route("otherstochange")]
         public async Task<IActionResult> OthersToChange(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
-            int pageSize = 40;
-            await SetPaginator(pageSize, page, "otherstochange");
-            return View(await dbContext.Others.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View(await PreparePagedDataAsync<OthersItem>(pageSize, page, "otherstochange"));
         }
 
         [Route("gallerytochange")]
         public async Task<IActionResult> GalleryToChange(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
-            int pageSize = 40;
-            await SetPaginator(pageSize, page, "gallerytochange");
-            return View(await dbContext.GalleryItems.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View(await PreparePagedDataAsync<GalleryItem>(pageSize, page, "gallerytochange"));
         }
 
         [Route("newstochange")]
         public async Task<IActionResult> NewsToChange(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
-            int pageSize = 10;
-            await SetPaginator(pageSize, page, "newstochange");
-            return View(await dbContext.NewsItems.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            ValidatePageId(ref page);
+            int pageSize = 5;
+            return View(await PreparePagedDataAsync<NewsItem>(pageSize, page, "newstochange"));
         }
 
-        private async Task SetPaginator(int pageSize, int currentPage, string mapPath) {
-            int totalCount = 0;
-            switch (mapPath) {
-                case "glovestochange":
-                    totalCount = await dbContext.Gloves.CountAsync();
-                    break;
-                case "sidingtochange":
-                    totalCount = await dbContext.Siding.CountAsync();
-                    break;
-                case "ventilationtochange":
-                    totalCount = await dbContext.Ventilation.CountAsync();
-                    break;
-                case "otherstochange":
-                    totalCount = await dbContext.Others.CountAsync();
-                    break;
-                case "gallerytochange":
-                    totalCount = await dbContext.GalleryItems.CountAsync();
-                    break;
-                case "newstochange":
-                    totalCount = await dbContext.NewsItems.CountAsync();
-                    break;
-            }
-
+        private async Task<List<T>> PreparePagedDataAsync<T>(int pageSize, int currentPage, string mapPath) where T : class {
             ViewBag.pageSize = pageSize;
             ViewBag.currentPage = currentPage;
-            ViewBag.totalCount = totalCount;
+            ViewBag.totalCount = await dbContext.GetCountAsync<T>();
             ViewBag.mapPath = mapPath;
+
+            return await dbContext.GetPagedDataAsync<T>(pageSize, currentPage);
         }
+
+        private void ValidatePageId(ref int pageId) => pageId = pageId <= 0 ? 1 : pageId;
 
         #endregion
 
         #region HttpGet ChangeMethods
         [HttpGet]
         [Route("changegloves")]
-        public IActionResult ChangeGloves(int id = 0) {
-            ViewBag.GlovesId = id;
-            if (id == 0)
-                return View();
-            else {
-                GlovesItem gloves = dbContext.Gloves.First(g => g.Id == id);
-                return View(gloves);
-            }
-        }
+        public async Task<IActionResult> ChangeGloves(int id = 0) => View(await PrepareChangeGetViewAsync<GlovesItem>(id));
 
         [HttpGet]
         [Route("changesiding")]
-        public IActionResult ChangeSiding(int id = 0) {
-            ViewBag.SidingId = id;
-            if (id == 0)
-                return View();
-            else {
-                SidingItem siding = dbContext.Siding.First(g => g.Id == id);
-                return View(siding);
-            }
-        }
+        public async Task<IActionResult> ChangeSiding(int id = 0) => View(await PrepareChangeGetViewAsync<SidingItem>(id));
 
         [HttpGet]
         [Route("changeventilation")]
-        public IActionResult ChangeVentilation(int id = 0) {
-            ViewBag.VentilationId = id;
-            if (id == 0)
-                return View();
-            else {
-                VentilationItem ventilation = dbContext.Ventilation.First(g => g.Id == id);
-                return View(ventilation);
-            }
-        }
+        public async Task<IActionResult> ChangeVentilation(int id = 0) => View(await PrepareChangeGetViewAsync<VentilationItem>(id));
 
         [HttpGet]
         [Route("changeothers")]
-        public IActionResult ChangeOthers(int id = 0) {
-            ViewBag.OthersId = id;
-            if (id == 0)
-                return View();
-            else {
-                OthersItem others = dbContext.Others.First(g => g.Id == id);
-                return View(others);
-            }
-        }
+        public async Task<IActionResult> ChangeOthers(int id = 0) => View(await PrepareChangeGetViewAsync<OthersItem>(id));
 
         [HttpGet]
         [Route("changegallery")]
-        public IActionResult ChangeGallery(int id = 0) {
-            ViewBag.GalleryId = id;
+        public async Task<IActionResult> ChangeGallery(int id = 0) {
+            ViewBag.Id = id;
             if (id == 0)
                 return View();
-            else {
-                GalleryItem galleryItem = dbContext.GalleryItems.First(g => g.Id == id);
-                return View(galleryItem);
-            }
+            else
+                return View(await dbContext.GalleryItems.FirstAsync(g => g.Id == id));
         }
 
         [HttpGet]
         [Route("changenews")]
-        public IActionResult ChangeNews(int id = 0) {
-            ViewBag.NewsId = id;
+        public async Task<IActionResult> ChangeNews(int id = 0) {
+            ViewBag.Id = id;
             if (id == 0)
                 return View();
-            else {
-                NewsItem newsItem = dbContext.NewsItems.Include(n => n.NewsContentItems).First(g => g.Id == id);
-                return View(newsItem);
-            }
+            else
+                return View(await dbContext.NewsItems.Include(n => n.NewsContentItems).FirstAsync(n => n.Id == id));
+        }
+
+        private async Task<T> PrepareChangeGetViewAsync<T>(int id) where T : class, IModelItem {
+            ViewBag.Id = id;
+            return await dbContext.GetFirstOrDefaultAsync<T>(id);
         }
 
         #endregion
@@ -195,118 +128,29 @@ namespace YukikoSite.Controllers {
         #region HttpPost ChangeMethods
         [HttpPost]
         [Route("changegloves")]
-        public async Task<IActionResult> ChangeGloves(GlovesItem gloves, IFormFile imageFile) {
-            if (imageFile != null) {
-                if(gloves.ImagePath != null && gloves.ImagePath != imageFile.FileName) {
-                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "gloves", gloves.ImagePath));
-                    if (oldImage.Exists)
-                        oldImage.Delete();
-                }
-
-                gloves.ImagePath = imageFile.FileName;
-                using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "gloves", imageFile.FileName), FileMode.Create)) {
-                    await imageFile.CopyToAsync(stream);
-                }
-            }
-
-            if (gloves.Id == 0)
-                dbContext.Gloves.Add(gloves);
-            else
-                dbContext.Gloves.Update(gloves);
-
-            dbContext.SaveChanges();
-            return RedirectToAction("glovestochange");
-        }
+        public async Task<IActionResult> ChangeGloves(GlovesItem gloves, IFormFile imageFile) => await PrepareChangePostViewAsync(gloves, imageFile, "gloves");
 
         [HttpPost]
         [Route("changesiding")]
-        public async Task<IActionResult> ChangeSiding(SidingItem siding, IFormFile imageFile) {
-            if (imageFile != null) {
-                if (siding.ImagePath != null && siding.ImagePath != imageFile.FileName) {
-                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "siding", siding.ImagePath));
-                    if (oldImage.Exists)
-                        oldImage.Delete();
-                }
-
-                siding.ImagePath = imageFile.FileName;
-                using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "siding", imageFile.FileName), FileMode.Create)) {
-                    await imageFile.CopyToAsync(stream);
-                }
-            }
-
-            if (siding.Id == 0)
-                dbContext.Siding.Add(siding);
-            else
-                dbContext.Siding.Update(siding);
-
-            dbContext.SaveChanges();
-            return RedirectToAction("sidingtochange");
-        }
+        public async Task<IActionResult> ChangeSiding(SidingItem siding, IFormFile imageFile) => await PrepareChangePostViewAsync(siding, imageFile, "siding");
 
         [HttpPost]
         [Route("changeventilation")]
-        public async Task<IActionResult> ChangeVentilation(VentilationItem ventilation, IFormFile imageFile) {
-            if (imageFile != null) {
-                if (ventilation.ImagePath != null && ventilation.ImagePath != imageFile.FileName) {
-                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "ventilation", ventilation.ImagePath));
-                    if (oldImage.Exists)
-                        oldImage.Delete();
-                }
-
-                ventilation.ImagePath = imageFile.FileName;
-                using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "ventilation", imageFile.FileName), FileMode.Create)) {
-                    await imageFile.CopyToAsync(stream);
-                }
-            }
-
-            if (ventilation.Id == 0)
-                dbContext.Ventilation.Add(ventilation);
-            else
-                dbContext.Ventilation.Update(ventilation);
-
-            dbContext.SaveChanges();
-            return RedirectToAction("ventilationtochange");
-        }
+        public async Task<IActionResult> ChangeVentilation(VentilationItem ventilation, IFormFile imageFile) => await PrepareChangePostViewAsync(ventilation, imageFile, "ventilation");
 
         [HttpPost]
         [Route("changeothers")]
-        public async Task<IActionResult> ChangeOthers(OthersItem others, IFormFile imageFile) {
-            if (imageFile != null) {
-                if (others.ImagePath != null && others.ImagePath != imageFile.FileName) {
-                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "others", others.ImagePath));
-                    if (oldImage.Exists)
-                        oldImage.Delete();
-                }
-
-                others.ImagePath = imageFile.FileName;
-                using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "others", imageFile.FileName), FileMode.Create)) {
-                    await imageFile.CopyToAsync(stream);
-                }
-            }
-
-            if (others.Id == 0)
-                dbContext.Others.Add(others);
-            else
-                dbContext.Others.Update(others);
-
-            dbContext.SaveChanges();
-            return RedirectToAction("otherstochange");
-        }
+        public async Task<IActionResult> ChangeOthers(OthersItem others, IFormFile imageFile) => await PrepareChangePostViewAsync(others, imageFile, "others");
 
         [HttpPost]
         [Route("changegallery")]
         public async Task<IActionResult> ChangeGallery(GalleryItem galleryItem, IFormFile imageFile) {
             if (imageFile != null) {
-                if (galleryItem.ImagePath != null && galleryItem.ImagePath != imageFile.FileName) {
-                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", galleryItem.ImagePath));
-                    if (oldImage.Exists)
-                        oldImage.Delete();
-                }
+                if (galleryItem.ImagePath != null && galleryItem.ImagePath != imageFile.FileName)
+                    DeleteOldFile(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", galleryItem.ImagePath));
 
                 galleryItem.ImagePath = imageFile.FileName;
-                using (FileStream stream = new FileStream(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", imageFile.FileName), FileMode.Create)) {
-                    await imageFile.CopyToAsync(stream);
-                }
+                await SaveNewFileAsync(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", imageFile.FileName), imageFile);
             }
 
             if (galleryItem.Id == 0)
@@ -314,7 +158,7 @@ namespace YukikoSite.Controllers {
             else
                 dbContext.GalleryItems.Update(galleryItem);
 
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction("gallerytochange");
         }
 
@@ -325,140 +169,118 @@ namespace YukikoSite.Controllers {
             bool isContentDefined = contentFiles != null && contentFiles.Length != 0;
 
             if (isTitleDefined) {
-                if (newsItem.TitleImagePath != null && newsItem.TitleImagePath != titleImageFile.FileName) {
-                    FileInfo oldImage = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", $"{newsItem.Id}", newsItem.TitleImagePath));
-                    if (oldImage.Exists)
-                        oldImage.Delete();
-                }
+                if (newsItem.TitleImagePath != null && newsItem.TitleImagePath != titleImageFile.FileName)
+                    DeleteOldFile(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", $"{newsItem.Id}", newsItem.TitleImagePath));
+
                 newsItem.TitleImagePath = titleImageFile.FileName;
             }
-            if(isContentDefined) {
+            if(isContentDefined)
                 foreach (var el in contentFiles)
-                    newsItem.NewsContentItems.Add(new NewsContentItem {
-                        ItemPath = el.FileName
-                    });
-            }
+                    newsItem.NewsContentItems.Add(new NewsContentItem { ItemPath = el.FileName });
 
             if (newsItem.Id == 0)
                 dbContext.NewsItems.Add(newsItem);
             else
                 dbContext.NewsItems.Update(newsItem);
 
-            dbContext.SaveChanges(); // New entity id is set now and we can use it for organize file storage
+            await dbContext.SaveChangesAsync(); // New entity id is set now and we can use it for organize file storage
 
             DirectoryInfo newsFolder = new DirectoryInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", $"{newsItem.Id}"));
             if (!newsFolder.Exists)
                 newsFolder.Create();
 
-            if (isTitleDefined) {
-                using (FileStream stream = new FileStream(Path.Combine(newsFolder.FullName, titleImageFile.FileName), FileMode.Create)) {
-                    await titleImageFile.CopyToAsync(stream);
-                }
-            }
+            if (isTitleDefined)
+                await SaveNewFileAsync(Path.Combine(newsFolder.FullName, titleImageFile.FileName), titleImageFile);
+
             if (isContentDefined) {
                 List<Task> tasks = new List<Task>();
-                foreach (var el in contentFiles) {
-                    tasks.Add(Task.Run(async () => {
-                        using (FileStream stream = new FileStream(Path.Combine(newsFolder.FullName, el.FileName), FileMode.Create)) {
-                            await el.CopyToAsync(stream);
-                        }
-                    }));
-                }
+                foreach (var el in contentFiles)
+                    tasks.Add(Task.Run(async () => await SaveNewFileAsync(Path.Combine(newsFolder.FullName, el.FileName), el)));
+
                 await Task.WhenAll(tasks);
             }
 
             return RedirectToAction("newstochange");
         }
 
+        private async Task<IActionResult> PrepareChangePostViewAsync<T>(T entity, IFormFile imageFile, string mapPath) where T : class, IModelItem {
+            if (imageFile != null) {
+                if (entity.ImagePath != null && entity.ImagePath != imageFile.FileName)
+                    DeleteOldFile(Path.Combine(hostingEnvironment.WebRootPath, "images", mapPath, entity.ImagePath));
+
+                entity.ImagePath = imageFile.FileName;
+                await SaveNewFileAsync(Path.Combine(hostingEnvironment.WebRootPath, "images", mapPath, imageFile.FileName), imageFile);
+            }
+
+            if (entity.Id == 0)
+                dbContext.Add(entity);
+            else
+                dbContext.Update(entity);
+
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction(mapPath + "tochange");
+        }
+
+        private async Task SaveNewFileAsync(string path, IFormFile file) {
+            using (FileStream stream = new FileStream(path, FileMode.Create)) {
+                await file.CopyToAsync(stream);
+            }
+        }
+
         #endregion
 
         #region DeleteMethods
         [Route("deletegloves")]
-        public IActionResult DeleteGloves(int id) {
-            GlovesItem gloves = dbContext.Gloves.First(g => g.Id == id);
-
-            if (gloves.ImagePath != null) {
-                FileInfo imageFile = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "gloves", gloves.ImagePath));
-                if (imageFile.Exists)
-                    imageFile.Delete();
-            }
-
-            dbContext.Gloves.Remove(gloves);
-            dbContext.SaveChanges();
-            return RedirectToAction("glovestochange");
-        }
+        public async Task<IActionResult> DeleteGloves(int id) => await DeleteEntityAsync<GlovesItem>(id, "gloves");
 
         [Route("deletesiding")]
-        public IActionResult DeleteSiding(int id) {
-            SidingItem siding = dbContext.Siding.First(g => g.Id == id);
-
-            if (siding.ImagePath != null) {
-                FileInfo imageFile = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "siding", siding.ImagePath));
-                if (imageFile.Exists)
-                    imageFile.Delete();
-            }
-
-            dbContext.Siding.Remove(siding);
-            dbContext.SaveChanges();
-            return RedirectToAction("sidingtochange");
-        }
+        public async Task<IActionResult> DeleteSiding(int id) => await DeleteEntityAsync<SidingItem>(id, "siding");
 
         [Route("deleteventilation")]
-        public IActionResult DeleteVentilation(int id) {
-            VentilationItem ventilation = dbContext.Ventilation.First(g => g.Id == id);
-
-            if (ventilation.ImagePath != null) {
-                FileInfo imageFile = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "ventilation", ventilation.ImagePath));
-                if (imageFile.Exists)
-                    imageFile.Delete();
-            }
-
-            dbContext.Ventilation.Remove(ventilation);
-            dbContext.SaveChanges();
-            return RedirectToAction("ventilationtochange");
-        }
+        public async Task<IActionResult> DeleteVentilation(int id) => await DeleteEntityAsync<VentilationItem>(id, "ventilation");
 
         [Route("deleteothers")]
-        public IActionResult DeleteOthers(int id) {
-            OthersItem others = dbContext.Others.First(g => g.Id == id);
-
-            if (others.ImagePath != null) {
-                FileInfo imageFile = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "others", others.ImagePath));
-                if (imageFile.Exists)
-                    imageFile.Delete();
-            }
-
-            dbContext.Others.Remove(others);
-            dbContext.SaveChanges();
-            return RedirectToAction("otherstochange");
-        }
+        public async Task<IActionResult> DeleteOthers(int id) => await DeleteEntityAsync<OthersItem>(id, "others");
 
         [Route("deletegallery")]
-        public IActionResult DeleteGallery(int id) {
+        public async Task<IActionResult> DeleteGallery(int id) {
             GalleryItem galleryItem = dbContext.GalleryItems.First(g => g.Id == id);
 
-            if (galleryItem.ImagePath != null) {
-                FileInfo imageFile = new FileInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", galleryItem.ImagePath));
-                if (imageFile.Exists)
-                    imageFile.Delete();
-            }
+            if (galleryItem.ImagePath != null)
+                DeleteOldFile(Path.Combine(hostingEnvironment.WebRootPath, "images", "gallery", galleryItem.ImagePath));
 
             dbContext.GalleryItems.Remove(galleryItem);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction("gallerytochange");
         }
 
         [Route("deletenews")]
-        public IActionResult DeleteNews(int id) {
-            NewsItem newsItem = dbContext.NewsItems.First(g => g.Id == id);
+        public async Task<IActionResult> DeleteNews(int id) {
+            NewsItem newsItem = dbContext.NewsItems.First(n => n.Id == id);
 
             DirectoryInfo newsFolder = new DirectoryInfo(Path.Combine(hostingEnvironment.WebRootPath, "images", "news", $"{id}"));
             if (newsFolder.Exists)
                 newsFolder.Delete(true);
 
             dbContext.NewsItems.Remove(newsItem);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction("newstochange");
+        }
+
+        private async Task<IActionResult> DeleteEntityAsync<T>(int id, string mapPath) where T : class, IModelItem {
+            T entity = await dbContext.GetFirstOrDefaultAsync<T>(id);
+            if (entity.ImagePath != null)
+                DeleteOldFile(Path.Combine(hostingEnvironment.WebRootPath, "images", mapPath, entity.ImagePath));
+
+            dbContext.Remove(entity);
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction(mapPath + "tochange");
+        }
+
+        private void DeleteOldFile(string path) {
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
+                file.Delete();
         }
 
         #endregion

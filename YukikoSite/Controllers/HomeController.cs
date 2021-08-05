@@ -19,62 +19,44 @@ namespace YukikoSite.Controllers {
 
         [Route("gloves")]
         public async Task<IActionResult> Gloves(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
+            ValidatePageId(ref page);
             int pageSize = 20;
-            await SetPaginator(pageSize, page, "gloves");
-            return View(await dbContext.Gloves.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            return View(await PreparePagedDataAsync<GlovesItem>(pageSize, page, "gloves"));
         }
 
         [Route("siding")]
         public async Task<IActionResult> Siding(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
+            ValidatePageId(ref page);
             int pageSize = 20;
-            await SetPaginator(pageSize, page, "siding");
-            return View(await dbContext.Siding.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            return View(await PreparePagedDataAsync<SidingItem>(pageSize, page, "siding"));
         }
 
         [Route("ventilation")]
         public async Task<IActionResult> Ventilation(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
+            ValidatePageId(ref page);
             int pageSize = 20;
-            await SetPaginator(pageSize, page, "ventilation");
-            return View(await dbContext.Ventilation.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            return View(await PreparePagedDataAsync<VentilationItem>(pageSize, page, "ventilation"));
         }
 
         [Route("others")]
         public async Task<IActionResult> Others(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
+            ValidatePageId(ref page);
             int pageSize = 20;
-            await SetPaginator(pageSize, page, "others");
-            return View(await dbContext.Others.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            return View(await PreparePagedDataAsync<OthersItem>(pageSize, page, "others"));
         }
 
         [Route("gallery")]
         public async Task<IActionResult> Gallery(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
+            ValidatePageId(ref page);
             int pageSize = 20;
-            await SetPaginator(pageSize, page, "gallery");
-            return View(await dbContext.GalleryItems.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            return View(await PreparePagedDataAsync<GalleryItem>(pageSize, page, "gallery"));
         }
 
         [Route("news")]
         public async Task<IActionResult> News(int page = 1) {
-            if (page <= 0)
-                page = 1;
-
+            ValidatePageId(ref page);
             int pageSize = 5;
-            await SetPaginator(pageSize, page, "news");
-            return View(await dbContext.NewsItems.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
+            return View(await PreparePagedDataAsync<NewsItem>(pageSize, page, "news"));
         }
 
         [Route("newscontent")]
@@ -89,33 +71,15 @@ namespace YukikoSite.Controllers {
         [Route("map")]
         public IActionResult Map() => View();
 
-        private async Task SetPaginator(int pageSize, int currentPage, string mapPath) {
-            int totalCount = 0;
-            switch (mapPath) {
-                case "gloves":
-                    totalCount = await dbContext.Gloves.CountAsync();
-                    break;
-                case "siding":
-                    totalCount = await dbContext.Siding.CountAsync();
-                    break;
-                case "ventilation":
-                    totalCount = await dbContext.Ventilation.CountAsync();
-                    break;
-                case "others":
-                    totalCount = await dbContext.Others.CountAsync();
-                    break;
-                case "gallery":
-                    totalCount = await dbContext.GalleryItems.CountAsync();
-                    break;
-                case "news":
-                    totalCount = await dbContext.NewsItems.CountAsync();
-                    break;
-            }
-
+        private async Task<List<T>> PreparePagedDataAsync<T>(int pageSize, int currentPage, string mapPath) where T : class {
             ViewBag.pageSize = pageSize;
             ViewBag.currentPage = currentPage;
-            ViewBag.totalCount = totalCount;
+            ViewBag.totalCount = await dbContext.GetCountAsync<T>();
             ViewBag.mapPath = mapPath;
+
+            return await dbContext.GetPagedDataAsync<T>(pageSize, currentPage);
         }
+
+        private void ValidatePageId(ref int pageId) => pageId = pageId <= 0 ? 1 : pageId;
     }
 }

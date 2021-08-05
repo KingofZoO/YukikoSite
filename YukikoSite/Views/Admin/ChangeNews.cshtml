@@ -15,7 +15,7 @@
 <form class="form-frame" asp-controller="Admin" asp-action="ChangeNews" asp-antiforgery="true" method="post" enctype="multipart/form-data">
     <div>
         <div>
-            <input type="hidden" value="@ViewBag.NewsId" asp-for="Id" />
+            <input type="hidden" value="@ViewBag.Id" asp-for="Id" />
             <input type="hidden" asp-for="TitleImagePath" />
         </div>
         <div>

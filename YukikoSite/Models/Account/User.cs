@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace YukikoSite.Models.Account {
+﻿namespace YukikoSite.Models.Account {
     public class User {
         public int Id { get; set; }
         public string Name { get; set; }

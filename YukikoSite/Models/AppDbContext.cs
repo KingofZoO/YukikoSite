@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using YukikoSite.Models;
 using YukikoSite.Models.Account;
@@ -50,6 +53,24 @@ namespace YukikoSite.Models {
                 el.Description = $"This is {name}{i}";
             }
             return data;
+        }
+
+        public async Task<List<T>> GetPagedDataAsync<T>(int pageSize, int currentPage) where T : class {
+            DbSet<T> dbSet = this.Set<T>();
+            return await dbSet.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<int> GetCountAsync<T>() where T : class {
+            DbSet<T> dbSet = this.Set<T>();
+            return await dbSet.CountAsync();
+        }
+
+        public async Task<T> GetFirstOrDefaultAsync<T>(int id) where T : class, IModelItem {
+            if (id <= 0)
+                return default;
+
+            DbSet<T> dbSet = this.Set<T>();
+            return await dbSet.FirstAsync(el => el.Id == id);
         }
     }
 }

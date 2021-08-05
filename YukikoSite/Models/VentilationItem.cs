@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace YukikoSite.Models {
+﻿namespace YukikoSite.Models {
     public class VentilationItem : IModelItem {
         public int Id { get; set; }
         public string ImagePath { get; set; }
