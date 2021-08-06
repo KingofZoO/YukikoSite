@@ -56,7 +56,8 @@ namespace YukikoSite.Controllers {
         public async Task<IActionResult> News(int page = 1) {
             ValidatePageId(ref page);
             int pageSize = 5;
-            return View(await PreparePagedDataAsync<NewsItem>(pageSize, page, "news"));
+            await PrepareViewBagData<NewsItem>(pageSize, page, "news");
+            return View(await dbContext.NewsItems.OrderByDescending(n => n.Id).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
         }
 
         [Route("newscontent")]
@@ -72,12 +73,15 @@ namespace YukikoSite.Controllers {
         public IActionResult Map() => View();
 
         private async Task<List<T>> PreparePagedDataAsync<T>(int pageSize, int currentPage, string mapPath) where T : class {
+            await PrepareViewBagData<T>(pageSize, currentPage, mapPath);
+            return await dbContext.GetPagedDataAsync<T>(pageSize, currentPage);
+        }
+
+        private async Task PrepareViewBagData<T>(int pageSize, int currentPage, string mapPath) where T : class {
             ViewBag.pageSize = pageSize;
             ViewBag.currentPage = currentPage;
             ViewBag.totalCount = await dbContext.GetCountAsync<T>();
             ViewBag.mapPath = mapPath;
-
-            return await dbContext.GetPagedDataAsync<T>(pageSize, currentPage);
         }
 
         private void ValidatePageId(ref int pageId) => pageId = pageId <= 0 ? 1 : pageId;
