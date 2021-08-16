@@ -69,6 +69,12 @@ namespace YukikoSite.Controllers {
             return View(newsItem);
         }
 
+        [Route("company")]
+        public IActionResult Company() => View();
+
+        [Route("aboutsiding")]
+        public IActionResult AboutSiding() => View();
+
         [Route("map")]
         public IActionResult Map() => View();
 

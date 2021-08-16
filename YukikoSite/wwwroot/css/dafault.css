@@ -64,6 +64,7 @@
     min-height: 400px;
     position: relative;
     text-align: center;
+    overflow: hidden;
 }
 
 .main-info-others {
@@ -72,6 +73,26 @@
 
 .main-info-siding {
     background-position: center 60%;
+}
+
+.main-company-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 400px;
+    width: auto;
+    transform: translate(-50%, -50%);
+}
+
+.about-company-img {
+    text-align: center;
+}
+    .about-company-img img {
+        width: calc(2 * var(--item-min-width));
+    }
+
+.bold {
+    font-weight: bold;
 }
 
 .main-title {
@@ -414,5 +435,11 @@
     }
     .news-desc {
         display: inline-block;
+    }
+    .main-company-img {
+        height: 180px;
+    }
+    .about-company-img img {
+        width: var(--item-min-width);
     }
 }
