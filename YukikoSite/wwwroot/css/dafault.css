@@ -79,7 +79,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 400px;
+    height: 320px;
     width: auto;
     transform: translate(-50%, -50%);
 }
@@ -428,6 +428,14 @@
         .ul-nav-wrapper li {
             display: initial;
         }
+
+    .main-company-img {
+        height: 180px;
+    }
+
+    .about-company-img img {
+        width: var(--item-min-width);
+    }
 }
 
 @media(max-width: 700px) {
@@ -439,11 +447,5 @@
     }
     .news-desc {
         display: inline-block;
-    }
-    .main-company-img {
-        height: 180px;
-    }
-    .about-company-img img {
-        width: var(--item-min-width);
     }
 }
