@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FibroItem>
+
+@{
+    ViewData["Title"] = "Фиброцементный сайдинг";
+}
+
+<div class="second-info">
+    <h1>Фиброцементные панели NICHIHA</h1>
+    <div class="second-info-text">
+        NICHIHA — пример морозоустойчивости, стабильности размеров, прочности и долговечности. Панели не теряют цвет в течение 15-30 лет: специальное покрытие устойчиво к атмосферным воздействиям.
+        Более подробно ознакомиться с преимуществами фиброцементных панелей NICHIHA <a href="http://www.pic-fineco.ru/index.php?page=Nichiha">можно здесь.</a>
+    </div>
+    <div class="second-images">
+        <img src="~/images/fibrosSecond1.jpg" />
+        <img src="~/images/fibrosSecond2.jpg" />
+        <img src="~/images/fibrosSecond3.jpg" />
+    </div>
+</div>
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content siding-item">
+            <div class="item-title">@item.Title</div>
+            <table class="item-table">
+                <tr>
+                    <td>
+                        <img src="~/images/fibros/@item.ImagePath"
+                             onclick="enlargeImg(this, 3.3)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="item-desc">
+                        @item.Description
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+@await Html.PartialAsync("Partials/PaginatorPartial", new PaginatorViewModel(ViewBag.pageSize, ViewBag.currentPage, ViewBag.totalCount, ViewBag.mapPath))
+<script src="~/js/enlargeScript.js" asp-append-version="true"></script>

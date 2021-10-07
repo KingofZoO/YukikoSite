@@ -15,6 +15,7 @@ namespace YukikoSite.Models {
         public DbSet<SidingItem> Siding { get; set; }
         public DbSet<VentilationItem> Ventilation { get; set; }
         public DbSet<OthersItem> Others { get; set; }
+        public DbSet<FibroItem> Fibros { get; set; }
 
         public DbSet<GalleryItem> GalleryItems { get; set; }
 

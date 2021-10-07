@@ -40,6 +40,13 @@ namespace YukikoSite.Controllers {
             return View(await PreparePagedDataAsync<SidingItem>(pageSize, page, "sidingtochange"));
         }
 
+        [Route("fibrostochange")]
+        public async Task<IActionResult> FibrosToChange(int page = 1) {
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View(await PreparePagedDataAsync<FibroItem>(pageSize, page, "fibrostochange"));
+        }
+
         [Route("ventilationtochange")]
         public async Task<IActionResult> VentilationToChange(int page = 1) {
             ValidatePageId(ref page);
@@ -95,6 +102,10 @@ namespace YukikoSite.Controllers {
         public async Task<IActionResult> ChangeSiding(int id = 0) => View(await PrepareChangeGetViewAsync<SidingItem>(id));
 
         [HttpGet]
+        [Route("changefibros")]
+        public async Task<IActionResult> ChangeFibros(int id = 0) => View(await PrepareChangeGetViewAsync<FibroItem>(id));
+
+        [HttpGet]
         [Route("changeventilation")]
         public async Task<IActionResult> ChangeVentilation(int id = 0) => View(await PrepareChangeGetViewAsync<VentilationItem>(id));
 
@@ -137,6 +148,10 @@ namespace YukikoSite.Controllers {
         [HttpPost]
         [Route("changesiding")]
         public async Task<IActionResult> ChangeSiding(SidingItem siding, IFormFile imageFile) => await PrepareChangePostViewAsync(siding, imageFile, "siding");
+
+        [HttpPost]
+        [Route("changefibros")]
+        public async Task<IActionResult> ChangeFibros(FibroItem fibros, IFormFile imageFile) => await PrepareChangePostViewAsync(fibros, imageFile, "fibros");
 
         [HttpPost]
         [Route("changeventilation")]
@@ -239,6 +254,9 @@ namespace YukikoSite.Controllers {
 
         [Route("deletesiding")]
         public async Task<IActionResult> DeleteSiding(int id) => await DeleteEntityAsync<SidingItem>(id, "siding");
+
+        [Route("deletefibros")]
+        public async Task<IActionResult> DeleteFibros(int id) => await DeleteEntityAsync<FibroItem>(id, "fibros");
 
         [Route("deleteventilation")]
         public async Task<IActionResult> DeleteVentilation(int id) => await DeleteEntityAsync<VentilationItem>(id, "ventilation");

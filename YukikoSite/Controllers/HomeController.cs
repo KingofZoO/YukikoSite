@@ -31,6 +31,13 @@ namespace YukikoSite.Controllers {
             return View(await PreparePagedDataAsync<SidingItem>(pageSize, page, "siding"));
         }
 
+        [Route("fibros")]
+        public async Task<IActionResult> Fibros(int page = 1) {
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View(await PreparePagedDataAsync<FibroItem>(pageSize, page, "fibros"));
+        }
+
         [Route("ventilation")]
         public async Task<IActionResult> Ventilation(int page = 1) {
             ValidatePageId(ref page);
