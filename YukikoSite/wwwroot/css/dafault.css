@@ -162,6 +162,10 @@
     margin: 10px;
 }
 
+.subcategory-title {
+    transform: translate(-50%, -50px);
+}
+
 .gloves-info-text {
     max-width: 800px;
     vertical-align: top;
