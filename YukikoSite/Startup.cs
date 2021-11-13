@@ -26,8 +26,8 @@ namespace YukikoSite {
             services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(keysFolder)).SetApplicationName("yukiko");
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
-            services.AddDbContext<AppDbContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(10, 5, 8))));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+            //services.AddDbContext<AppDbContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(10, 5, 8))));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 

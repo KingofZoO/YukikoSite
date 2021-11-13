@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SidingComplectItem>
+
+@{
+    ViewData["Title"] = "Комплектующие";
+}
+
+<div class="a-button-wrapper">
+    <a href="/choosecontent">К выбору категории</a>
+</div>
+<div class="a-button-wrapper">
+    <a href="/changesidingcomplect">Добавить компектующие</a>
+</div>
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content">
+            <div class="siding-item">
+                <div class="item-title">@item.Title</div>
+                <table class="item-table">
+                    <tr>
+                        <td>
+                            <img src="~/images/sidingcomplect/@item.ImagePath" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="item-desc">
+                            @item.Description
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="a-button-wrapper">
+                <a href="/changesidingcomplect?id=@item.Id">Изменить</a>
+            </div>
+            <div class="a-button-wrapper">
+                <a href="/deletesidingcomplect?id=@item.Id">Удалить</a>
+            </div>
+        </div>
+    }
+</div>
+@await Html.PartialAsync("Partials/PaginatorPartial", new PaginatorViewModel(ViewBag.pageSize, ViewBag.currentPage, ViewBag.totalCount, ViewBag.mapPath))

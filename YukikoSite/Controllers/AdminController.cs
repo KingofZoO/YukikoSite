@@ -37,14 +37,35 @@ namespace YukikoSite.Controllers {
         public async Task<IActionResult> SidingToChange(int page = 1) {
             ValidatePageId(ref page);
             int pageSize = 20;
-            return View(await PreparePagedDataAsync<SidingItem>(pageSize, page, "sidingtochange"));
+            return View("Siding/SidingToChange", await PreparePagedDataAsync<SidingItem>(pageSize, page, "sidingtochange"));
         }
 
-        [Route("fibrostochange")]
-        public async Task<IActionResult> FibrosToChange(int page = 1) {
+        [Route("sidingcomplecttochange")]
+        public async Task<IActionResult> SidingComplectToChange(int page = 1) {
             ValidatePageId(ref page);
             int pageSize = 20;
-            return View(await PreparePagedDataAsync<FibroItem>(pageSize, page, "fibrostochange"));
+            return View("Siding/SidingComplectToChange", await PreparePagedDataAsync<SidingComplectItem>(pageSize, page, "sidingcomplecttochange"));
+        }
+
+        [Route("fibros14tochange")]
+        public async Task<IActionResult> Fibros14ToChange(int page = 1) {
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View("Fibros/Fibros14ToChange", await PreparePagedDataAsync<Fibro14Item>(pageSize, page, "fibros14tochange"));
+        }
+
+        [Route("fibros16tochange")]
+        public async Task<IActionResult> Fibros16ToChange(int page = 1) {
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View("Fibros/Fibros16ToChange", await PreparePagedDataAsync<Fibro16Item>(pageSize, page, "fibros16tochange"));
+        }
+
+        [Route("fibroscomplecttochange")]
+        public async Task<IActionResult> FibrosComplectToChange(int page = 1) {
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View("Fibros/FibrosComplectToChange", await PreparePagedDataAsync<FibroComplectItem>(pageSize, page, "fibroscomplecttochange"));
         }
 
         [Route("ventilationtochange")]
@@ -99,11 +120,23 @@ namespace YukikoSite.Controllers {
 
         [HttpGet]
         [Route("changesiding")]
-        public async Task<IActionResult> ChangeSiding(int id = 0) => View(await PrepareChangeGetViewAsync<SidingItem>(id));
+        public async Task<IActionResult> ChangeSiding(int id = 0) => View("Siding/ChangeSiding", await PrepareChangeGetViewAsync<SidingItem>(id));
 
         [HttpGet]
-        [Route("changefibros")]
-        public async Task<IActionResult> ChangeFibros(int id = 0) => View(await PrepareChangeGetViewAsync<FibroItem>(id));
+        [Route("changesidingcomplect")]
+        public async Task<IActionResult> ChangeSidingComplect(int id = 0) => View("Siding/ChangeSidingComplect", await PrepareChangeGetViewAsync<SidingComplectItem>(id));
+
+        [HttpGet]
+        [Route("changefibros14")]
+        public async Task<IActionResult> ChangeFibros14(int id = 0) => View("Fibros/ChangeFibros14", await PrepareChangeGetViewAsync<Fibro14Item>(id));
+
+        [HttpGet]
+        [Route("changefibros16")]
+        public async Task<IActionResult> ChangeFibros16(int id = 0) => View("Fibros/ChangeFibros16", await PrepareChangeGetViewAsync<Fibro16Item>(id));
+
+        [HttpGet]
+        [Route("changefibroscomplect")]
+        public async Task<IActionResult> ChangeFibrosComplect(int id = 0) => View("Fibros/ChangeFibrosComplect", await PrepareChangeGetViewAsync<FibroComplectItem>(id));
 
         [HttpGet]
         [Route("changeventilation")]
@@ -150,8 +183,20 @@ namespace YukikoSite.Controllers {
         public async Task<IActionResult> ChangeSiding(SidingItem siding, IFormFile imageFile) => await PrepareChangePostViewAsync(siding, imageFile, "siding");
 
         [HttpPost]
-        [Route("changefibros")]
-        public async Task<IActionResult> ChangeFibros(FibroItem fibros, IFormFile imageFile) => await PrepareChangePostViewAsync(fibros, imageFile, "fibros");
+        [Route("changesidingcomplect")]
+        public async Task<IActionResult> ChangeSidingComplect(SidingComplectItem sidingComplect, IFormFile imageFile) => await PrepareChangePostViewAsync(sidingComplect, imageFile, "sidingcomplect");
+
+        [HttpPost]
+        [Route("changefibros14")]
+        public async Task<IActionResult> ChangeFibros14(Fibro14Item fibros, IFormFile imageFile) => await PrepareChangePostViewAsync(fibros, imageFile, "fibros14");
+
+        [HttpPost]
+        [Route("changefibros16")]
+        public async Task<IActionResult> ChangeFibros16(Fibro16Item fibros, IFormFile imageFile) => await PrepareChangePostViewAsync(fibros, imageFile, "fibros16");
+
+        [HttpPost]
+        [Route("changefibroscomplect")]
+        public async Task<IActionResult> ChangeFibrosComplect(FibroComplectItem fibrosComplect, IFormFile imageFile) => await PrepareChangePostViewAsync(fibrosComplect, imageFile, "fibroscomplect");
 
         [HttpPost]
         [Route("changeventilation")]
@@ -255,8 +300,17 @@ namespace YukikoSite.Controllers {
         [Route("deletesiding")]
         public async Task<IActionResult> DeleteSiding(int id) => await DeleteEntityAsync<SidingItem>(id, "siding");
 
-        [Route("deletefibros")]
-        public async Task<IActionResult> DeleteFibros(int id) => await DeleteEntityAsync<FibroItem>(id, "fibros");
+        [Route("deletesidingcomplect")]
+        public async Task<IActionResult> DeleteSidingComplect(int id) => await DeleteEntityAsync<SidingComplectItem>(id, "sidingcomplect");
+
+        [Route("deletefibros14")]
+        public async Task<IActionResult> DeleteFibros14(int id) => await DeleteEntityAsync<Fibro14Item>(id, "fibros14");
+
+        [Route("deletefibros16")]
+        public async Task<IActionResult> DeleteFibros16(int id) => await DeleteEntityAsync<Fibro16Item>(id, "fibros16");
+
+        [Route("deletefibroscomplect")]
+        public async Task<IActionResult> DeleteFibrosComplect(int id) => await DeleteEntityAsync<FibroComplectItem>(id, "fibroscomplect");
 
         [Route("deleteventilation")]
         public async Task<IActionResult> DeleteVentilation(int id) => await DeleteEntityAsync<VentilationItem>(id, "ventilation");

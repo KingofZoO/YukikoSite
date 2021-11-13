@@ -9,7 +9,10 @@
     <Folder Include="Keys\" />
     <Folder Include="wwwroot\images\gallery\" />
     <Folder Include="wwwroot\images\gloves\" />
-    <Folder Include="wwwroot\images\fibros\" />
+    <Folder Include="wwwroot\images\fibros14\" />
+    <Folder Include="wwwroot\images\fibroscomplect\" />
+    <Folder Include="wwwroot\images\fibros16\" />
+    <Folder Include="wwwroot\images\sidingcomplect\" />
     <Folder Include="wwwroot\images\news\" />
     <Folder Include="wwwroot\images\others\" />
     <Folder Include="wwwroot\images\ventilation\" />

@@ -24,18 +24,45 @@ namespace YukikoSite.Controllers {
             return View(await PreparePagedDataAsync<GlovesItem>(pageSize, page, "gloves"));
         }
 
+        [Route("sidingall")]
+        public IActionResult SidingAll() => View("Siding/SidingAll");
+
         [Route("siding")]
         public async Task<IActionResult> Siding(int page = 1) {
             ValidatePageId(ref page);
             int pageSize = 20;
-            return View(await PreparePagedDataAsync<SidingItem>(pageSize, page, "siding"));
+            return View("Siding/Siding", await PreparePagedDataAsync<SidingItem>(pageSize, page, "siding"));
         }
 
-        [Route("fibros")]
-        public async Task<IActionResult> Fibros(int page = 1) {
+        [Route("sidingcomplect")]
+        public async Task<IActionResult> SidingComplect(int page = 1) {
             ValidatePageId(ref page);
             int pageSize = 20;
-            return View(await PreparePagedDataAsync<FibroItem>(pageSize, page, "fibros"));
+            return View("Siding/SidingComplect", await PreparePagedDataAsync<SidingComplectItem>(pageSize, page, "sidingcomplect"));
+        }
+
+        [Route("fibrosall")]
+        public IActionResult FibrosAll() => View("Fibros/FibrosAll");
+
+        [Route("fibros14")]
+        public async Task<IActionResult> Fibros14(int page = 1) {
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View("Fibros/Fibros14", await PreparePagedDataAsync<Fibro14Item>(pageSize, page, "fibros14"));
+        }
+
+        [Route("fibros16")]
+        public async Task<IActionResult> Fibros16(int page = 1) {
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View("Fibros/Fibros16", await PreparePagedDataAsync<Fibro16Item>(pageSize, page, "fibros16"));
+        }
+
+        [Route("fibroscomplect")]
+        public async Task<IActionResult> FibrosComplect(int page = 1) {
+            ValidatePageId(ref page);
+            int pageSize = 20;
+            return View("Fibros/FibrosComplect", await PreparePagedDataAsync<FibroComplectItem>(pageSize, page, "fibroscomplect"));
         }
 
         [Route("ventilation")]

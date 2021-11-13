@@ -11,11 +11,16 @@ namespace YukikoSite.Models {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
-        public DbSet<GlovesItem> Gloves { get; set; }
         public DbSet<SidingItem> Siding { get; set; }
+        public DbSet<SidingComplectItem> SidingComplect { get; set; }
+
+        public DbSet<GlovesItem> Gloves { get; set; }
         public DbSet<VentilationItem> Ventilation { get; set; }
         public DbSet<OthersItem> Others { get; set; }
-        public DbSet<FibroItem> Fibros { get; set; }
+
+        public DbSet<Fibro14Item> Fibros14 { get; set; }
+        public DbSet<Fibro16Item> Fibros16 { get; set; }
+        public DbSet<FibroComplectItem> FibrosComplect { get; set; }
 
         public DbSet<GalleryItem> GalleryItems { get; set; }
 

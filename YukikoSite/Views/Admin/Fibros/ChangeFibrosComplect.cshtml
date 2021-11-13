@@ -1,16 +1,16 @@
-﻿@model FibroItem
+﻿@model FibroComplectItem
 
 @{
-    ViewData["Title"] = "Фибро";
+    ViewData["Title"] = "Компектующие";
 }
 
 @{
-    string ImageSource() => Model == null ? "" : $"/images/fibros/{Model.ImagePath}";
+    string ImageSource() => Model == null ? "" : $"/images/fibroscomplect/{Model.ImagePath}";
     string ModelTitle() => Model == null ? "" : $"{Model.Title}";
     string ModelDesc() => Model == null ? "" : $"{Model.Description}";
 }
 
-<form class="form-frame" asp-controller="Admin" asp-action="ChangeFibros" asp-antiforgery="true" method="post" enctype="multipart/form-data">
+<form class="form-frame" asp-controller="Admin" asp-action="ChangeFibrosComplect" asp-antiforgery="true" method="post" enctype="multipart/form-data">
     <div>
         <div>
             <input type="hidden" value="@ViewBag.Id" asp-for="Id" />

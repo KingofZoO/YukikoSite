@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SidingItem>
+
+@{
+    ViewData["Title"] = "Сайдинг";
+}
+
+<div class="items-container-content">
+    @foreach (var item in Model) {
+        <div class="item-content siding-item">
+            <div class="item-title">@item.Title</div>
+            <table class="item-table">
+                <tr>
+                    <td>
+                        <img src="~/images/siding/@item.ImagePath"
+                             onclick="enlargeImg(this, 3.3)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="item-desc">
+                        @item.Description
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+@await Html.PartialAsync("Partials/PaginatorPartial", new PaginatorViewModel(ViewBag.pageSize, ViewBag.currentPage, ViewBag.totalCount, ViewBag.mapPath))
+<script src="~/js/enlargeScript.js" asp-append-version="true"></script>

@@ -1,6 +1,4 @@
-﻿@model IEnumerable<SidingItem>
-
-@{
+﻿@{
     ViewData["Title"] = "Сайдинг";
 }
 
@@ -16,25 +14,21 @@
         <img src="~/images/sidingSecond3.jpg" />
     </div>
 </div>
-<div class="items-container-content">
-    @foreach (var item in Model) {
-        <div class="item-content siding-item">
-            <div class="item-title">@item.Title</div>
-            <table class="item-table">
-                <tr>
-                    <td>
-                        <img src="~/images/siding/@item.ImagePath"
-                             onclick="enlargeImg(this, 3.3)" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="item-desc">
-                        @item.Description
-                    </td>
-                </tr>
-            </table>
+
+<a href="~/siding" class="a-section">
+    <div class="main-info main-info-siding" style="background-image: url(/images/sidingMain.jpg)">
+        <div class="main-title">
+            <h1>YUKIKO</h1>
+            <h2>МЕТАЛЛОСАЙДИНГ</h2>
         </div>
-    }
-</div>
-@await Html.PartialAsync("Partials/PaginatorPartial", new PaginatorViewModel(ViewBag.pageSize, ViewBag.currentPage, ViewBag.totalCount, ViewBag.mapPath))
-<script src="~/js/enlargeScript.js" asp-append-version="true"></script>
+    </div>
+</a>
+
+<a href="~/sidingcomplect" class="a-section">
+    <div class="main-info main-info-siding" style="background-image: url(/images/sidingMain.jpg)">
+        <div class="main-title">
+            <h1>YUKIKO</h1>
+            <h2>КОМПЛЕКТУЮЩИЕ</h2>
+        </div>
+    </div>
+</a>

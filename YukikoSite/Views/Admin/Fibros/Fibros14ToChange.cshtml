@@ -1,14 +1,14 @@
-﻿@model IEnumerable<FibroItem>
+﻿@model IEnumerable<Fibro14Item>
 
 @{
-    ViewData["Title"] = "Фибро";
+    ViewData["Title"] = "Фибро (14мм)";
 }
 
 <div class="a-button-wrapper">
     <a href="/choosecontent">К выбору категории</a>
 </div>
 <div class="a-button-wrapper">
-    <a href="/changefibros">Добавить фибро</a>
+    <a href="/changefibros14">Добавить фибро (14мм)</a>
 </div>
 <div class="items-container-content">
     @foreach (var item in Model) {
@@ -18,7 +18,7 @@
                 <table class="item-table">
                     <tr>
                         <td>
-                            <img src="~/images/fibros/@item.ImagePath" />
+                            <img src="~/images/fibros14/@item.ImagePath" />
                         </td>
                     </tr>
                     <tr>
@@ -29,10 +29,10 @@
                 </table>
             </div>
             <div class="a-button-wrapper">
-                <a href="/changefibros?id=@item.Id">Изменить</a>
+                <a href="/changefibros14?id=@item.Id">Изменить</a>
             </div>
             <div class="a-button-wrapper">
-                <a href="/deletefibros?id=@item.Id">Удалить</a>
+                <a href="/deletefibros14?id=@item.Id">Удалить</a>
             </div>
         </div>
     }
