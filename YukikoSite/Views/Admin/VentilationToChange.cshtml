@@ -14,7 +14,14 @@
     @foreach (var item in Model) {
         <div class="item-content">
             <div class="ventilation-item">
-                <div class="item-title">@item.Title</div>
+                <div class="item-title">
+                    @if (item.LinkPath == null) {
+                        @item.Title
+                    }
+                    else {
+                        <a href="@item.LinkPath">@item.Title</a>
+                    }
+                </div>
                 <table class="item-table">
                     <tr>
                         <td>

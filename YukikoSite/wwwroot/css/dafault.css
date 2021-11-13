@@ -334,6 +334,10 @@
         height: 150px;
     }
 
+    .form-frame label {
+        width: 300px;
+    }
+
     .form-frame textarea {
         width: 300px;
         height: 200px;

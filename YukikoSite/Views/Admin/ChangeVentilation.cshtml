@@ -25,6 +25,10 @@
             <textarea asp-for="Description" id="desc-input"></textarea>
         </div>
         <div>
+            <label asp-for="LinkPath">Введите ссылку, если требуется</label><br />
+            <input asp-for="LinkPath" />
+        </div>
+        <div>
             <input type="file" name="imageFile" accept="image/*" id="img-input" />
         </div>
     </div>
