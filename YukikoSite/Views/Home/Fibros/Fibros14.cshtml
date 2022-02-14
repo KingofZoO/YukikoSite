@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Фиброцементный сайдинг (14мм)";
+
+    int num = 1;
+
+    string NumTitle(IModelItem item) => $"{num++ + ViewBag.pageSize * (ViewBag.currentPage - 1)}. {item.Title}";
 }
 
 <div class="items-container-content">
@@ -9,10 +13,10 @@
         <div class="item-content siding-item">
             <div class="item-title">
                 @if (item.LinkPath == null) {
-                    @item.Title
+                    <label>@NumTitle(item)</label>
                 }
                 else {
-                    <a href="@item.LinkPath">@item.Title</a>
+                    <a href="@item.LinkPath">@NumTitle(item)</a>
                 }
             </div>
             <table class="item-table">

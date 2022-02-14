@@ -114,6 +114,12 @@
     .main-title h2 {
         font-size: 40px;
         margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .main-title h3 {
+        font-size: 30px;
+        margin-top: 10px;
     }
 
 .main-subinfo {
