@@ -243,6 +243,16 @@
         height: 150px;
     }
 
+.fibros-item {
+    width: var(--item-min-width);
+    height: 415px;
+}
+
+    .fibros-item img {
+        width: 350px;
+        margin-left: 18px;
+    }
+
 .siding-item {
     width: var(--item-min-width);
     height: 415px;
@@ -251,6 +261,16 @@
     .siding-item img {
         width: 300px;
         margin-left: 42px;
+    }
+
+.complect-item {
+    width: var(--item-min-width);
+    height: 415px;
+}
+
+    .complect-item img {
+        width: 350px;
+        margin-left: 18px;
     }
 
 .ventilation-item {
